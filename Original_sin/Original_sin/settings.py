@@ -40,7 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # utility app
     'core.apps.CoreConfig',
+
+    # chuvsu bot
+    'chuvsu.apps.ChuvsuConfig',
+
+    # old bot
+    'old_bot.apps.OldBotConfig'
 ]
 
 MIDDLEWARE = [
