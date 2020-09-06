@@ -7,6 +7,5 @@ urlpatterns = [
     url(
         r'^$',
         views.index,
-        name='core'
     ),
 ]
