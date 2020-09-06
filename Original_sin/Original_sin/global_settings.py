@@ -1,4 +1,4 @@
-from Original_sin.settings.basic_settings import BasicSettings
+from Original_sin.basic_settings import BasicSettings
 
 
 class GlobalSettings(BasicSettings):
