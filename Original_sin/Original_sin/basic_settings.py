@@ -54,7 +54,7 @@ class BasicSettings(GetSettingsMixin):
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
 
-    ROOT_URLCONF = 'Original_sin.urls'
+    ROOT_URLCONF = 'original_sin.urls'
 
     TEMPLATES = [
         {
@@ -72,7 +72,7 @@ class BasicSettings(GetSettingsMixin):
         },
     ]
 
-    WSGI_APPLICATION = 'Original_sin.wsgi.application'
+    WSGI_APPLICATION = 'original_sin.wsgi.application'
 
     # Database
     # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -80,7 +80,7 @@ class BasicSettings(GetSettingsMixin):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'Original_sin/db.sqlite3'),
+            'NAME': os.path.join(BASE_DIR, 'original_sin/db.sqlite3'),
         }
     }
 

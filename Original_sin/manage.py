@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Original_sin.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'original_sin.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

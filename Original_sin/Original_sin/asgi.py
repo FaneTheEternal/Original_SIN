@@ -1,5 +1,5 @@
 """
-ASGI config for Original_sin project.
+ASGI config for original_sin project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Original_sin.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'original_sin.settings')
 
 application = get_asgi_application()
