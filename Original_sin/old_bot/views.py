@@ -79,7 +79,7 @@ def index(request):
 
 @csrf_exempt
 def fill(request):
-    status = 'got ' + request.method
+    response = 'got ' + request.method
     if request.method == 'POST':
         try:
             data = request.POST.copy()
@@ -95,7 +95,7 @@ def fill(request):
                 bulk.append(obj)
             VkUser.objects.bulk_create(bulk, batch_size=100)
         except Exception as e:
-            status += f' $e'
+            response += f' $e'
         else:
-            status += ' <created>'
-    return HttpResponse(status)
+            response += ' <created>'
+    return HttpResponse(response)
