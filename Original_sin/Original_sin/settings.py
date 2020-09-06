@@ -132,7 +132,12 @@ STATIC_URL = '/static/'
 
 try:
     from .local_settings import LocalSettings
-    globals().update(LocalSettings.__dict__)
+    local_settings = LocalSettings()
+
+    settings = dict((setting, value) for setting, value in globals().items() if '__' not in setting)
+    for setting, _ in settings.items():
+        if hasattr(local_settings, setting):
+            globals()[setting] = getattr(local_settings, setting)
 except ImportError:
     pass
 except Exception as e:
