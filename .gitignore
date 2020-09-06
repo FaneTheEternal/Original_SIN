@@ -1,0 +1,9 @@
+virtualenv
+.vscode
+.idea
+
+__pycache__
+db.sqlite3
+*.pyc
+
+local_settings.py
