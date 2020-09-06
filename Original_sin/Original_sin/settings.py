@@ -27,7 +27,7 @@ SECRET_KEY = 'xq=wj#&c%gvgjv25)i#5p%k$b9ih9@nscrm^yd7qd!16$kk%0-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', 'fanetheeternal.pythonanywhere.com']
 
 
 # Application definition
