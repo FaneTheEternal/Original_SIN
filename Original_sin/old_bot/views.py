@@ -87,9 +87,10 @@ def fill(request):
             data = data.get('data')
             data = data[0]
             data = data.split()
+            data = ((i.split(':')) for i in data)
+            data = dict(data)
             bulk = []
-            for item in data:
-                user_id, status = item.split(':')
+            for user_id, status in data.items():
                 obj = VkUser(user_id=user_id, status=status)
                 bulk.append(obj)
             VkUser.objects.bulk_create(bulk, batch_size=100)
