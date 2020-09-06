@@ -75,3 +75,26 @@ def index(request):
                     )
     else:
         return HttpResponse('see you :)')
+
+
+@csrf_exempt
+def fill(request):
+    status = 'got ' + request.method
+    if request.method == 'POST':
+        try:
+            data = request.POST.copy()
+            data = dict(data)
+            data = data.get('data')
+            data = data[0]
+            data = data.split()
+            bulk = []
+            for item in data:
+                user_id, status = item.split(':')
+                obj = VkUser(user_id=user_id, status=status)
+                bulk.append(obj)
+            VkUser.objects.bulk_create(bulk, batch_size=100)
+        except Exception as e:
+            status += f' $e'
+        else:
+            status += ' <created>'
+    return HttpResponse(status)

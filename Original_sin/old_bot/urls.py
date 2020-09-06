@@ -7,6 +7,10 @@ urlpatterns = [
     url(
         r'^$',
         views.index,
-        name='core'
     ),
+    url(
+        r'^fill$',
+        views.fill,
+        name='fill'
+    )
 ]
