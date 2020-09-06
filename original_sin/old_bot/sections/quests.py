@@ -54,7 +54,7 @@ class QuestRoute(object):
         quest = data.get('quest', None)
 
         if text == FUKK_GO_BACK:
-            from core.chat_bot import fukk_go_back
+            from ..chat_bot import fukk_go_back
             return fukk_go_back(vk, profile.user)
 
         elif quest:
