@@ -1,5 +1,6 @@
 django==3.0.5
 psycopg2==2.8.5
 vk_api==11.8.0
+mysqlclient==2.0.1
 pythonanywhere
 Pillow
