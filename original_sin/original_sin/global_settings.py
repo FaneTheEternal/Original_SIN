@@ -15,7 +15,10 @@ class GlobalSettings(BasicSettings):
             'chuvsu.apps.ChuvsuConfig',
 
             # old bot
-            'old_bot.apps.OldBotConfig'
+            'old_bot.apps.OldBotConfig',
+
+            # schedule service
+            'schedule.apps.ScheduleConfig'
         ]
         return apps
 
