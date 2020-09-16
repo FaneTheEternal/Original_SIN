@@ -1,12 +1,9 @@
 import subprocess
 import platform
 import sys
+from collections import Iterable
 
-import requests
-from bs4 import BeautifulSoup
-
-from .consts import CHUVSU_SCHEDULE_DOMAIN
-from .models import Schedule, Institute
+from .models import Schedule, Institute, Subject
 
 
 def ping(host):
@@ -26,49 +23,100 @@ def ping(host):
     return subprocess.call(command) == 0
 
 
+def num_by_day_name(name: str):
+    week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']
+    try:
+        if not isinstance(name, str):
+            raise ValueError
+
+        return week.index(name)
+    except ValueError:
+        return None
+
+
+def iterable(obj):
+    try:
+        iter(obj)
+    except Exception:
+        return False
+    else:
+        return True
+
+
+def flatten(obj):
+    if iterable(obj):
+        flat = []
+        for o in obj:
+            if iterable(o):
+                flat += flatten(o)
+            else:
+                flat.append(o)
+        return flat
+    return obj
+
+
 class NotScheduleException(Exception):
     pass
 
 
-class ScheduleBackend(object):
-    CANT_PING_MSG = 'Chuvsu schedule server unavailable'
+class ParserOld(object):
+    HOST_NAME = None
+    INSTITUTE_NAME = None
+    DOMAIN = None
 
-    parse_range = range(4700, 5900)
-    url_mask = '/index/grouptt/gr/{group_num}'
-    protocol = 'https://'
+    data = []
 
-    is_even = None
+    @property
+    def CANT_PING_MSG(self):
+        return f'${self.HOST_NAME} schedule server unavailable'
 
     def __init__(self):
-        is_active = ping(CHUVSU_SCHEDULE_DOMAIN)
+        self._implement_check()
+
+        is_active = ping(self.DOMAIN)
         if not is_active:
             print(self.CANT_PING_MSG, file=sys.stderr)
             return
-        self.institute = Institute.objects.get(short_name='ЧувГУ')
+        self.institute = Institute.objects.get(short_name=self.INSTITUTE_NAME)
 
-    def test(self, num):
-        return self._update_for(num)
+    def _implement_check(self):
+        status = True
+        status &= self.HOST_NAME is not None
+        status &= self.INSTITUTE_NAME is not None
+        status &= self.DOMAIN is not None
+        if not status:
+            raise NotImplementedError
 
-    def _update_for(self, num: int):
-        url = self.protocol + CHUVSU_SCHEDULE_DOMAIN + self.url_mask.format(group_num=num)
-        response = requests.get(url)
-        soup = BeautifulSoup(response.content, 'html.parser')
+    def test(self):
+        raise NotImplementedError
 
-        data_table = soup.find(id='groupstt')
-        if not data_table:
-            raise NotScheduleException
+    def _execute(self):
+        raise NotImplementedError
 
-        group = soup.find('span', {'class': 'htext'}).span.string
-        schedule, _ = Schedule.objects.get_or_create(
-            institute=self.institute,
-            group=group
-        )
+    def save(self):
+        if len(self.data) == 0:
+            raise NotScheduleException(f'Нет расписания для ${self.INSTITUTE_NAME}')
+        try:
+            schedule, subjects = self.data[0]
+            assert isinstance(schedule, Schedule)
+            assert isinstance(subjects, list)
+            assert isinstance(subjects[0], Subject)
+        except [ValueError, AssertionError, IndexError]:
+            raise Exception('Не верный формат данных')
 
-    def update(self):
-        for num in self.parse_range:
-            try:
-                self._update_for(num)
-            except NotScheduleException:
-                pass
-            except Exception as e:
-                print(e, file=sys.stderr)
+        schedules = []
+        subjects = []
+        for schedule, subjects in self.data:
+            schedules.append(schedule)
+            subjects += subjects
+
+        old_schedule = Schedule.objects.filter(institute=self.institute)
+        Subject.objects.filter(schedule__in=old_schedule).delete()
+        old_schedule.delete()
+
+        Schedule.objects.bulk_create(schedules, batch_size=50)
+        Subject.objects.bulk_create(subjects, batch_size=20)
+
+    def invoke(self):
+        self._execute()
+        self.save()

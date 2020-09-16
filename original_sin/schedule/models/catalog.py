@@ -27,7 +27,7 @@ class InstituteSlaveMixin(models.Model):
     )
 
     def __str__(self):
-        return f'${self.name} ${self.institute}'
+        return f'{self.name} {self.institute}'
 
     class Meta:
         abstract = True
@@ -50,7 +50,7 @@ class Teacher(InstituteSlaveMixin, models.Model):
     @property
     def name_with_prefix(self):
         if self.prefix:
-            return f'${self.prefix} ${self.name}'
+            return f'{self.prefix} {self.name}'
         return self.name
 
     @property
