@@ -38,9 +38,8 @@ class Subject(models.Model):
 
     discipline = models.ForeignKey(
         to=Discipline,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         related_name='subjects',
-        null=True, blank=True,
     )
 
     lecture_hall = models.ForeignKey(
@@ -70,6 +69,7 @@ class Subject(models.Model):
         verbose_name='День недели'
     )
 
-    is_even = models.NullBooleanField(
-        verbose_name='Четный ли'
+    is_even = models.BooleanField(
+        verbose_name='Четный ли',
+        null=True, blank=True,
     )

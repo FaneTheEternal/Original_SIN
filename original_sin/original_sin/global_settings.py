@@ -2,7 +2,7 @@ from original_sin.basic_settings import BasicSettings
 
 
 class GlobalSettings(BasicSettings):
-    ALLOWED_HOSTS = ['localhost']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
     @property
     def INSTALLED_APPS(self):
