@@ -99,3 +99,10 @@ def fill(request):
         else:
             response += ' <created>'
     return HttpResponse(response)
+
+
+def raw(request):
+    qs = VkUser.objects.all()
+    ids = ['{id}:{status}'.format(id=i.user_id, status=i.status) for i in qs]
+    result = ' '.join(ids)
+    return HttpResponse(result)
