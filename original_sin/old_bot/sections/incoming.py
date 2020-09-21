@@ -54,7 +54,7 @@ class Incoming(object):
     ADMISSION = 'Сроки приема'
 
     def execute(self, vk, user, text):
-        profile, created = IncomingProfile.objects.get_or_create(
+        profile, created = IncomingProfile.objects.using('old_bot').get_or_create(
             user=user
         )
         message = ''
@@ -266,7 +266,7 @@ class Admission(object):
     BACK = 'Вернуться в основное меню'
 
     def execute(self, vk, user, text):
-        profile, created = IncomingProfile.objects.get_or_create(
+        profile, created = IncomingProfile.objects.using('old_bot').get_or_create(
             user=user
         )
         message = ''

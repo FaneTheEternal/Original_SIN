@@ -45,7 +45,7 @@ class QuestRoute(object):
 
     @classmethod
     def execute(cls, vk, user, text):
-        profile, created = QuestProfile.objects.get_or_create(
+        profile, created = QuestProfile.objects.using('old_bot').get_or_create(
             user=user
         )
 

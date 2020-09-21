@@ -66,7 +66,7 @@ def index(request):
                         print('delete_for_all: ', delete_for_all, file=sys.stderr)
                         print('Pezdos: ', pezdos, file=sys.stderr)
                     else:
-                        user, _ = VkUser.objects.get_or_create(user_id=peer_id)
+                        user, _ = VkUser.objects.using('old_bot').get_or_create(user_id=peer_id)
                         chat_bot.go_home(vk, user)
             return HttpResponse(
                     'ok',
@@ -93,7 +93,7 @@ def fill(request):
             for user_id, status in data.items():
                 obj = VkUser(user_id=user_id, status=status)
                 bulk.append(obj)
-            VkUser.objects.bulk_create(bulk, batch_size=100)
+            VkUser.objects.using('old_bot').bulk_create(bulk, batch_size=100)
         except Exception as e:
             response += f' {e}'
         else:
@@ -102,7 +102,7 @@ def fill(request):
 
 
 def raw(request):
-    qs = VkUser.objects.all()
+    qs = VkUser.objects.using('old_bot').all()
     ids = ['{id}:{status}'.format(id=i.user_id, status=i.status) for i in qs]
     result = ' '.join(ids)
     return HttpResponse(result)

@@ -49,7 +49,7 @@ class Game(object):
     def __init__(self, **kwargs):
         self.user = kwargs.pop('user')
         self.vk = kwargs.pop('vk', None)
-        self.profile, created = GameProfile.objects.get_or_create(
+        self.profile, created = GameProfile.objects.using('old_bot').get_or_create(
             user=self.user
         )
         self.big_data = json.loads(self.profile.some_data)
@@ -135,7 +135,7 @@ class GameShell(object):
     game = None
 
     def __init__(self):
-        user, _ = VkUser.objects.get_or_create(
+        user, _ = VkUser.objects.using('old_bot').get_or_create(
             user_id=123
         )
         self.game = Game(user=user)
