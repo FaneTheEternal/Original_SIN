@@ -12,5 +12,10 @@ urlpatterns = [
         r'^fill$',
         views.fill,
         name='fill'
+    ),
+    url(
+        r'raw',
+        views.raw,
+        name='raw',
     )
 ]
