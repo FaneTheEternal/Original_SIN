@@ -95,7 +95,7 @@ def fill(request):
                 bulk.append(obj)
             VkUser.objects.bulk_create(bulk, batch_size=100)
         except Exception as e:
-            response += f' ${e}'
+            response += f' {e}'
         else:
             response += ' <created>'
     return HttpResponse(response)
