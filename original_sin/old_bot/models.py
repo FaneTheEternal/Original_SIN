@@ -5,6 +5,7 @@ class VkUser(models.Model):
     user_id = models.IntegerField(
         'id пользователя',
         blank=False, null=False,
+        unique=True,
     )
     HOME = 0
     SPECIALIST = 1
