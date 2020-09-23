@@ -56,7 +56,7 @@ def execute(data: dict):
 
     obj = data['object']
     user_id = obj['from_id']
-    user, created = VkUser.objects.using('old_bot').get_or_create(
+    user, created = VkUser.objects.get_or_create(
         user_id=user_id
     )
     message = ''
