@@ -1,3 +1,5 @@
+import os
+
 from original_sin.basic_settings import BasicSettings
 
 
@@ -22,6 +24,23 @@ class GlobalSettings(BasicSettings):
         ]
         return apps
 
+    @property
+    def DATABASES(self):
+        db = super(GlobalSettings, self).DATABASES
+        BASE_DIR = super(GlobalSettings, self).BASE_DIR
+
+        old_bot = {
+            'old_bot_db': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': os.path.join(BASE_DIR, 'original_sin/db.sqlite3'),
+            }
+        }
+
+        db.update(old_bot)
+        return db
+
     CHUVSU_VK_TOKEN = ''
     CHUVSU_VK_CONFIRMATION_TOKEN = ''
     CHUVSU_VK_SECRET_KEY = ''
+
+    DATABASE_ROUTERS = ['original_sin.db_routs.OldBotRouter']
