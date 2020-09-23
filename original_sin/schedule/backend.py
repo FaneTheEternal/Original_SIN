@@ -243,7 +243,8 @@ class ScheduleBackend(object):
 
     @property
     def institute(self):
-        if isinstance(self._institute, str):
+        """ Single Institute """
+        if not isinstance(self._institute, Institute):
             self._institute = Institute.objects.get(
                 short_name=self._institute
             )
