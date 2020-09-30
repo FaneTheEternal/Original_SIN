@@ -1,11 +1,11 @@
 import sys
 
 import vk_api
+from django.conf import settings
 from vk_api.utils import get_random_id
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 from vk_api.exceptions import ApiError
 
-from .bot_config import token
 from .models import VkUser
 from .chat_bot_texts import TEXTS
 
@@ -50,6 +50,8 @@ ATTACHMENTS = {
 
 
 def execute(data: dict):
+    token = settings.get('CHUVSU_VK_TOKEN')
+
     vk_session = vk_api.VkApi(token=token)
     vk = vk_session.get_api()
     keyboard = VkKeyboard(one_time=True)
