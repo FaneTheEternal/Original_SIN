@@ -29,8 +29,6 @@ def index(request):
                     )
             if data['type'] == 'message_new':
                 try:
-                    print(request.method, file=sys.stderr)
-                    print(request.body, file=sys.stderr)
                     chat_bot.execute(data)
                 except Exception as e:
                     print(e, file=sys.stderr)
