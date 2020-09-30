@@ -15,9 +15,9 @@ import sys
 @csrf_exempt
 def index(request):
     try:
-        token = settings.get('CHUVSU_VK_TOKEN')
-        secret_key = settings.get('CHUVSU_VK_SECRET_KEY')
-        confirmation_token = settings.get('CHUVSU_VK_CONFIRMATION_TOKEN')
+        token = getattr(settings, 'CHUVSU_VK_TOKEN')
+        secret_key = getattr(settings, 'CHUVSU_VK_SECRET_KEY')
+        confirmation_token = getattr(settings, 'CHUVSU_VK_CONFIRMATION_TOKEN')
     except Exception as e:
         print('Cant get bot settings', file=sys.stderr)
         print(e, file=sys.stderr)

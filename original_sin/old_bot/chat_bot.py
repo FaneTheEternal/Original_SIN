@@ -50,7 +50,7 @@ ATTACHMENTS = {
 
 
 def execute(data: dict):
-    token = settings.get('CHUVSU_VK_TOKEN')
+    token = getattr(settings, 'CHUVSU_VK_TOKEN')
 
     vk_session = vk_api.VkApi(token=token)
     vk = vk_session.get_api()
