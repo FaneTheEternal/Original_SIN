@@ -18,21 +18,10 @@ def index(request):
     secret_key = getattr(settings, 'CHUVSU_VK_SECRET_KEY')
     confirmation_token = getattr(settings, 'CHUVSU_VK_CONFIRMATION_TOKEN')
 
-    print(request.method, file=sys.stderr)
-    print(request.body, file=sys.stderr)
     if request.method == "POST":
         data = json.loads(request.body)
         if data['secret'] == secret_key:
             if data['type'] == 'confirmation':
-                """
-                For confirmation my server (webhook) it must return
-                confirmation token, whitch issuing in administration web-panel
-                your public group in vk.com.
-
-                Using <content_type="text/plain"> in HttpResponse function allows you
-                response only plain text, without any format symbols.
-                Parametr <status=200> response to VK server as VK want.
-                """
                 return HttpResponse(
                     confirmation_token,
                     content_type="text/plain",
@@ -40,14 +29,11 @@ def index(request):
                     )
             if data['type'] == 'message_new':
                 try:
+                    print(request.method, file=sys.stderr)
+                    print(request.body, file=sys.stderr)
                     chat_bot.execute(data)
                 except Exception as e:
                     print(e, file=sys.stderr)
-                return HttpResponse(
-                    'ok',
-                    content_type="text/plain",
-                    status=200
-                    )
             if data['type'] == 'message_reply':
                 vk_session = vk_api.VkApi(token=token)
                 vk = vk_session.get_api()
