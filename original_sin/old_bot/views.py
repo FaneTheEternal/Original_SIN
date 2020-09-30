@@ -18,6 +18,8 @@ def index(request):
     secret_key = getattr(settings, 'CHUVSU_VK_SECRET_KEY')
     confirmation_token = getattr(settings, 'CHUVSU_VK_CONFIRMATION_TOKEN')
 
+    print(request.method, file=sys.stderr)
+    print(request.body, file=sys.stderr)
     if request.method == "POST":
         data = json.loads(request.body)
         if data['secret'] == secret_key:
