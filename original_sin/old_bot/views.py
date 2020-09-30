@@ -21,7 +21,7 @@ def index(request):
     except Exception as e:
         print('Cant get bot settings', file=sys.stderr)
         print(e, file=sys.stderr)
-        return HttpResponse('Cant get bot settings', status=500)
+        return HttpResponse('Cant get bot settings', status=200)
 
     if request.method == "POST":
         data = json.loads(request.body)
