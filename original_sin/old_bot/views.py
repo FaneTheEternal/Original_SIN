@@ -65,8 +65,11 @@ def index(request):
                     content_type="text/plain",
                     status=200
                     )
-    else:
-        return HttpResponse('see you :)')
+        else:
+            return HttpResponse(
+                'Invalid secret'
+            )
+    return HttpResponse('see you :)')
 
 
 @csrf_exempt
