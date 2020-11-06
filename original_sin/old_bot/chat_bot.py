@@ -21,7 +21,7 @@ START_COMMAND = 'Начать'
 HOME_COMMAND = 'Вернуться к боту'
 
 SPECIAL_COMMANDS = [
-    'Справочник контактов'
+    'Справочник контактов',
     'Тесты',
     'Задать вопрос специалисту',
 ]
@@ -121,7 +121,7 @@ def home_keyboard(keyboard=None, one_time=True):
     if keyboard is None:
         keyboard = VkKeyboard(one_time=one_time)
     keyboard.add_button(
-        'Справочник контактов', color=VkKeyboardColor.POSITIVE
+        'Справочник контактов', color=VkKeyboardColor.DEFAULT
     )
 
     keyboard.add_button(
