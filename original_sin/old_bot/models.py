@@ -11,6 +11,7 @@ class VkUser(models.Model):
     SPECIALIST = 1
     INCOMING = 2
     QUEST = 3
+    CONTACTS = 4
     status = models.IntegerField(
         'текущей статус общения с ботом',
         blank=False, null=False,
