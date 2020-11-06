@@ -121,16 +121,21 @@ def home_keyboard(keyboard=None, one_time=True):
     if keyboard is None:
         keyboard = VkKeyboard(one_time=one_time)
     keyboard.add_button(
-        'Поступающим', color=VkKeyboardColor.POSITIVE
+        'Справочник контактов', color=VkKeyboardColor.POSITIVE
+    )
+
+    keyboard.add_button(
+        'Расписание', color=VkKeyboardColor.DEFAULT
     )
 
     keyboard.add_line()
 
     keyboard.add_button(
-        'Расписание звонков', color=VkKeyboardColor.DEFAULT
-    )
-    keyboard.add_button(
         'Схема корпусов', color=VkKeyboardColor.DEFAULT
+    )
+
+    keyboard.add_button(
+        'Стипендии', color=VkKeyboardColor.DEFAULT
     )
 
     keyboard.add_line()
@@ -138,8 +143,9 @@ def home_keyboard(keyboard=None, one_time=True):
     keyboard.add_button(
         'Общежития', color=VkKeyboardColor.DEFAULT
     )
+
     keyboard.add_button(
-        'Стипендии', color=VkKeyboardColor.DEFAULT
+        'Поступающим', color=VkKeyboardColor.DEFAULT
     )
 
     keyboard.add_line()
