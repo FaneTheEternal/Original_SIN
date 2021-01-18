@@ -20,7 +20,10 @@ class GlobalSettings(BasicSettings):
             'old_bot.apps.OldBotConfig',
 
             # schedule service
-            'schedule.apps.ScheduleConfig'
+            'schedule.apps.ScheduleConfig',
+
+            # sub translate service
+            'sub_translator.apps.SubTranslatorConfig'
         ]
         return apps
 
