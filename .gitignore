@@ -1,5 +1,6 @@
 virtualenv
 myvirtualenv
+venv
 .vscode
 .idea
 
