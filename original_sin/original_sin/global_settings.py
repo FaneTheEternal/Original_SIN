@@ -22,8 +22,11 @@ class GlobalSettings(BasicSettings):
             # schedule service
             'schedule.apps.ScheduleConfig',
 
-            # sub translate service
-            'sub_translator.apps.SubTranslatorConfig'
+            # subtitle translate service
+            'subtitle_translator.apps.SubtitleTranslatorConfig',
+            
+            # all bots
+            'bots.apps.BotsConfig',
         ]
         return apps
 
@@ -47,3 +50,5 @@ class GlobalSettings(BasicSettings):
     CHUVSU_VK_SECRET_KEY = ''
 
     DATABASE_ROUTERS = ['original_sin.db_routs.OldBotRouter']
+
+    FLUTTER_PATH = f'{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}\\..\\flutter\\'
