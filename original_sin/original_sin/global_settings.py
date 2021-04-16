@@ -22,9 +22,6 @@ class GlobalSettings(BasicSettings):
             # schedule service
             'schedule.apps.ScheduleConfig',
 
-            # subtitle translate service
-            'subtitle_translator.apps.SubtitleTranslatorConfig',
-
             # all bots
             'bots.apps.BotsConfig',
         ]
