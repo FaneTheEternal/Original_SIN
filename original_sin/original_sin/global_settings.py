@@ -48,12 +48,12 @@ class GlobalSettings(BasicSettings):
 
     @property
     def MIDDLEWARE(self):
-        base = super(GlobalSettings, self).MIDDLEWARE
-        white_noise = (
+        base = list(super(GlobalSettings, self).MIDDLEWARE)
+        white_noise = [
             # Simplified static file serving.
             # https://warehouse.python.org/project/whitenoise/
             'whitenoise.middleware.WhiteNoiseMiddleware',
-        )
+        ]
         return white_noise + base
 
     # Simplified static file serving.
