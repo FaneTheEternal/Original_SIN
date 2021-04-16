@@ -1,1 +1,1 @@
-web: gunicorn original_sin.original_sin.wsgi
+web: gunicorn original_sin.original_sin.wsgi --preload
