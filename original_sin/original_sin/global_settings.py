@@ -50,5 +50,3 @@ class GlobalSettings(BasicSettings):
     CHUVSU_VK_SECRET_KEY = ''
 
     DATABASE_ROUTERS = ['original_sin.db_routs.OldBotRouter']
-
-    FLUTTER_PATH = f'{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}\\..\\flutter\\'
