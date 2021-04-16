@@ -45,3 +45,18 @@ class GlobalSettings(BasicSettings):
     CHUVSU_VK_SECRET_KEY = ''
 
     DATABASE_ROUTERS = ['original_sin.db_routs.OldBotRouter']
+
+    @property
+    def MIDDLEWARE(self):
+        base = super(GlobalSettings, self).MIDDLEWARE
+        white_noise = (
+            # Simplified static file serving.
+            # https://warehouse.python.org/project/whitenoise/
+            'whitenoise.middleware.WhiteNoiseMiddleware',
+        )
+        return white_noise + base
+
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
