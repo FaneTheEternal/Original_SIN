@@ -1,0 +1,1 @@
+web: gunicorn original_sin.original_sin.wsgi
