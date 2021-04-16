@@ -24,7 +24,7 @@ class GlobalSettings(BasicSettings):
 
             # subtitle translate service
             'subtitle_translator.apps.SubtitleTranslatorConfig',
-            
+
             # all bots
             'bots.apps.BotsConfig',
         ]
@@ -36,13 +36,11 @@ class GlobalSettings(BasicSettings):
         BASE_DIR = super(GlobalSettings, self).BASE_DIR
 
         old_bot = {
-            'old_bot_db': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': os.path.join(BASE_DIR, 'original_sin/db.sqlite3'),
-            }
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'original_sin/db.sqlite3'),
         }
 
-        db.update(old_bot)
+        db['old_bot_db'] = old_bot
         return db
 
     CHUVSU_VK_TOKEN = ''
