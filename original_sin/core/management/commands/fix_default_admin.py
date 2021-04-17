@@ -14,8 +14,8 @@ class Command(BaseCommand):
         self.username_field = self.UserModel._meta.get_field(self.UserModel.USERNAME_FIELD)
 
     def handle(self, *args, **options):
-        username = settings.get('DEFAULT_ADMIN_USERNAME', 'admin')
-        password = settings.get('DEFAULT_ADMIN_PASSWORD', 'admin')
+        username = getattr(settings, 'DEFAULT_ADMIN_USERNAME', 'admin')
+        password = getattr(settings, 'DEFAULT_ADMIN_PASSWORD', 'admin')
         self.UserModel.objects.filter(username=username).delete()
         self.UserModel.objects.create_user(username=username, password=password, is_staff=True, is_superuser=True)
 
