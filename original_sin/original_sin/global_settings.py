@@ -79,6 +79,9 @@ class GlobalSettings(BasicSettings):
     # https://warehouse.python.org/project/whitenoise/
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+    DEFAULT_ADMIN_USERNAME = 'admin'
+    DEFAULT_ADMIN_PASSWORD = 'admin'
+
 
 class EnvironmentLoadSettings(GlobalSettings):
     def get_settings(self):
