@@ -39,7 +39,14 @@ class GlobalSettings(BasicSettings):
             'NAME': os.path.join(BASE_DIR, 'original_sin/db.sqlite3'),
         }
 
+        # Roflan stub
+        postgresql = {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'original_sin/db.sqlite3'),
+        }
+
         db['old_bot_db'] = old_bot
+        db['postgresql'] = postgresql
         return db
 
     CHUVSU_VK_TOKEN = ''
