@@ -1,2 +1,2 @@
-release: cd original_sin && python manage.py migrate && python manage.py migrate --database=old_bot_db && python manage.py migrate --database=postgresql && python manage.py fix_default_admin
+release: ./release-tasks.sh
 web: cd original_sin  && gunicorn original_sin.wsgi --preload
