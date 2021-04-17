@@ -1,5 +1,7 @@
 import os
 
+import dj_database_url
+
 from original_sin.basic_settings import BasicSettings
 
 
@@ -70,3 +72,25 @@ class GlobalSettings(BasicSettings):
     # https://warehouse.python.org/project/whitenoise/
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+
+class EnvironmentLoadSettings(GlobalSettings):
+    def get_settings(self):
+        base = super(EnvironmentLoadSettings, self).get_settings()
+        env = os.environ.copy()
+
+        new_params = set(base.keys()) & set(env.keys())
+        for key in new_params:
+            base[key] = env[key]
+
+        db_url_key = 'DATABASE_URL'
+        db_list_key = 'ENV_DATABASES'
+        if db_url_key in env and db_list_key in env:
+            db_names = env.get(db_list_key).split(';')
+            db_url = env.get(db_url_key)
+            for db in db_names:
+                base['DATABASES'][db] = dj_database_url.parse(
+                    db_url,
+                    conn_max_age=600,
+                    ssl_require=True
+                )
+        return base
