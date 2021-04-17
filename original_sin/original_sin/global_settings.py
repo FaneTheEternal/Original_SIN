@@ -75,12 +75,17 @@ class GlobalSettings(BasicSettings):
 
 class EnvironmentLoadSettings(GlobalSettings):
     def get_settings(self):
+        import json
+
         base = super(EnvironmentLoadSettings, self).get_settings()
         env = os.environ.copy()
 
         new_params = set(base.keys()) & set(env.keys())
         for key in new_params:
-            base[key] = env[key]
+            try:
+                base[key] = json.loads(env[key])
+            except json.decoder.JSONDecodeError:
+                base[key] = env[key]
 
         db_url_key = 'DATABASE_URL'
         db_list_key = 'ENV_DATABASES'
