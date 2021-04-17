@@ -21,9 +21,6 @@ class GlobalSettings(BasicSettings):
             # old bot
             'old_bot.apps.OldBotConfig',
 
-            # schedule service
-            'schedule.apps.ScheduleConfig',
-
             # all bots
             'bots.apps.BotsConfig',
         ]

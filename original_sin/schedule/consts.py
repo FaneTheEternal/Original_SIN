@@ -1,1 +1,0 @@
-CHUVSU_SCHEDULE_DOMAIN = 'tt.chuvsu.ru'
