@@ -25,6 +25,14 @@ class VkUser(models.Model):
     def __str__(self):
         return '{} <id:{}>'.format(self.__class__.__name__, self.user_id)
 
+    def get_quest_data(self):
+        quest_profile = self.quest_profile.all().first()
+        return quest_profile and quest_profile.data
+
+    def get_incoming_data(self):
+        incoming_profile = self.incoming_profile.all().first()
+        return incoming_profile and incoming_profile.status
+
 
 class QuestProfile(models.Model):
     user = models.ForeignKey(

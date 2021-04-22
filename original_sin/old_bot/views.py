@@ -1,3 +1,6 @@
+from typing import List
+
+from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
@@ -6,7 +9,7 @@ import vk_api
 from vk_api.exceptions import ApiError
 
 from . import chat_bot
-from .models import VkUser
+from .models import VkUser, QuestProfile, IncomingProfile
 
 import json
 import sys
@@ -26,7 +29,7 @@ def index(request):
                     confirmation_token,
                     content_type="text/plain",
                     status=200
-                    )
+                )
             if data['type'] == 'message_new':
                 try:
                     chat_bot.execute(data)
@@ -59,10 +62,10 @@ def index(request):
                         user, _ = VkUser.objects.get_or_create(user_id=peer_id)
                         chat_bot.go_home(vk, user)
             return HttpResponse(
-                    'ok',
-                    content_type="text/plain",
-                    status=200
-                    )
+                'ok',
+                content_type="text/plain",
+                status=200
+            )
         else:
             return HttpResponse(
                 'Invalid secret'
@@ -72,30 +75,42 @@ def index(request):
 
 @csrf_exempt
 def fill(request):
-    response = 'got ' + request.method
-    if request.method == 'POST':
-        try:
-            data = request.POST.copy()
-            data = dict(data)
-            data = data.get('data')
-            data = data[0]
-            data = data.split()
-            data = ((i.split(':')) for i in data)
-            data = dict(data)
-            bulk = []
-            for user_id, status in data.items():
-                obj = VkUser(user_id=user_id, status=status)
-                bulk.append(obj)
-            VkUser.objects.bulk_create(bulk, batch_size=100)
-        except Exception as e:
-            response += f' {e}'
-        else:
-            response += ' <created>'
-    return HttpResponse(response)
+    user = getattr(request, 'user')
+    try:
+        assert user.is_superuser, 'You must be a superuser'
+        assert request.method == 'POST', 'Except POST'
+        data = json.loads(request.body)
+        counter = 0
+        for row in data:
+            obj = dict(
+                user_id=row['user_id'],
+                status=row['status'],
+            )
+            user, created = VkUser.objects.update_or_create(obj, user_id=row['user_id'])
+            if row['quest_profile']:
+                quest, _ = QuestProfile.objects.update_or_create(
+                    dict(user=user, data=row['quest_profile']), user=user)
+            if row['incoming_profile']:
+                incoming, _ = IncomingProfile.objects.update_or_create(
+                    dict(user=user, status=row['incoming_profile']), user=user)
+            counter += 1
+        return HttpResponse(f'Affected {counter} users')
+    except Exception as e:
+        return HttpResponse(f'Error cause: {e}: {getattr(e, "message", "hz")}')
 
 
-def raw(request):
-    qs = VkUser.objects.all()
-    ids = ['{id}:{status}'.format(id=i.user_id, status=i.status) for i in qs]
-    result = ' '.join(ids)
-    return HttpResponse(result)
+def raw(request: WSGIRequest):
+    user = getattr(request, 'user')
+    try:
+        assert user.is_superuser, 'You must be a superuser'
+        users: List[VkUser] = VkUser.objects.all().prefetch_related('quest_profile', 'incoming_profile')
+        data = [{
+            'user_id': user.user_id,
+            'status': user.status,
+            'quest_profile': user.get_quest_data(),
+            'incoming_profile': user.get_incoming_data(),
+        } for user in users]
+        response = json.dumps(data)
+        return HttpResponse(response)
+    except Exception as e:
+        return HttpResponse(f'Error cause: {e}: {getattr(e, "message", "hz")}')
