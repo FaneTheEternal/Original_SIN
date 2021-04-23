@@ -27,6 +27,7 @@ def flutter_view(request: Union[HttpRequest, WSGIRequest], path: str = None, *ar
             return SimpleTemplateResponse(template, context=content)
         file = Path(settings.BASE_DIR, app_name, 'flutter', path)
         content_type = 'application/javascript' if path.endswith('.js') else None
+        logger.info(f'FLUTTER SEND `{file}`; custom type `{content_type}`')
         return FileResponse(open(file, 'rb'), content_type=content_type)
     except Exception as e:
         logger.error(e)
