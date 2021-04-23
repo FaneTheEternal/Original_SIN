@@ -160,6 +160,7 @@ def invoke(request, obj: LoginSchema):
     uid = obj.uid
     try:
         user, parser = prepare_env(uid)
+        print('Try INVOKE')
         translate_invoke(user, parser)
         return {'result': 'ok'}
     except Exception as e:
