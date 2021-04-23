@@ -14,7 +14,7 @@ class Command(BaseCommand):
         logger.info('CHECK AWS S3 STORAGE')
         AWS_STORAGE_BUCKET_NAME = getattr(settings, 'AWS_STORAGE_BUCKET_NAME', None)
         local_file_name = 'ini.txt'
-        local_file = Path(getattr(settings, 'STATIC_ROOT')).joinpath(local_file_name)
+        local_file = Path(getattr(settings, 'BASE_DIR')).joinpath('staticfiles', local_file_name)
         try:
             assert AWS_STORAGE_BUCKET_NAME, 'You must set AWS_STORAGE_BUCKET_NAME in django settings'
             s3 = boto3.resource('s3')
