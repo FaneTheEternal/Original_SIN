@@ -93,8 +93,9 @@ class GlobalSettings(BasicSettings):
 
     # Development flutter path
     FLUTTER_PROJECTS_PATH = Path(BasicSettings.BASE_DIR).parent.joinpath('flutter')
-    # Release flutter apps
+    # Developer can work with partial of all flutter projects
     USE_RELEASE_FLUTTER_APPS_LIST = False
+    # Release flutter apps
     FLUTTER_APPS = []
 
 
