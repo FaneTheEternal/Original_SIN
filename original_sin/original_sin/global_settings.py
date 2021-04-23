@@ -13,7 +13,7 @@ class GlobalSettings(BasicSettings):
         apps = super(GlobalSettings, self).INSTALLED_APPS
         apps += [
             # django-storages
-            'storages',
+            # 'storages',
 
             # utility app
             'core.apps.CoreConfig',
