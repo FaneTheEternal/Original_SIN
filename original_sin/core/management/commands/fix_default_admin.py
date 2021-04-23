@@ -20,5 +20,5 @@ class Command(BaseCommand):
         deleted = self.UserModel.objects.filter(username=username).delete()
         logger.info(f'Deleted {deleted} users')
         self.UserModel.objects.create_user(username=username, password=password, is_staff=True, is_superuser=True)
-        logger.info(f'ADMIN {username}:{password[1]}{"*" * (len(password) - 2)}{password[-1]}')
+        logger.info(f'ADMIN {username}:{password[0]}{"*" * (len(password) - 2)}{password[-1]}')
 
