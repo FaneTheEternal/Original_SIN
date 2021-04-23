@@ -11,3 +11,5 @@ python manage.py migrate --database=postgresql
 
 echo 'manage fix_default_admin'
 python manage.py fix_default_admin
+echo 'manage check_aws_s3'
+python manage.py check_aws_s3

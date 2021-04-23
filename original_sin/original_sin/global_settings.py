@@ -12,6 +12,9 @@ class GlobalSettings(BasicSettings):
     def INSTALLED_APPS(self):
         apps = super(GlobalSettings, self).INSTALLED_APPS
         apps += [
+            # django-storages
+            'storages',
+
             # utility app
             'core.apps.CoreConfig',
 
@@ -64,13 +67,13 @@ class GlobalSettings(BasicSettings):
 
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/1.9/howto/static-files/
-    STATIC_ROOT = os.path.join(BasicSettings.BASE_DIR, 'staticfiles')
+    # STATIC_ROOT = os.path.join(BasicSettings.BASE_DIR, 'staticfiles')
     STATIC_URL = '/static/'
 
     # Extra places for collectstatic to find static files.
-    STATICFILES_DIRS = (
-        os.path.join(BasicSettings.BASE_DIR, 'static'),
-    )
+    # STATICFILES_DIRS = (
+    #     os.path.join(BasicSettings.BASE_DIR, 'static'),
+    # )
 
     # Simplified static file serving.
     # https://warehouse.python.org/project/whitenoise/
@@ -78,6 +81,14 @@ class GlobalSettings(BasicSettings):
 
     DEFAULT_ADMIN_USERNAME = 'admin'
     DEFAULT_ADMIN_PASSWORD = 'admin'
+
+    AWS_ACCESS_KEY_ID = ''
+    AWS_SECRET_ACCESS_KEY = ''
+    AWS_STORAGE_BUCKET_NAME = ''
+    AWS_URL = ''
+    AWS_DEFAULT_ACL = None
+    AWS_S3_REGION_NAME = ''
+    AWS_S3_SIGNATURE_VERSION = 's3v4'
 
 
 class EnvironmentLoadSettings(GlobalSettings):
