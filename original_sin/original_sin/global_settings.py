@@ -12,6 +12,9 @@ class GlobalSettings(BasicSettings):
     def INSTALLED_APPS(self):
         apps = super(GlobalSettings, self).INSTALLED_APPS
         apps += [
+            # tasks app
+            'huey.contrib.djhuey',
+
             # django-storages
             # 'storages',
 
