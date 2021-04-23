@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 
 from huey.contrib.djhuey import task
@@ -6,6 +7,8 @@ from core.utility import construct
 from subtitle_translator.models import SimpleUser
 from subtitle_translator.translate_backend import SubtitleParser
 from subtitle_translator.utility import get_translator
+
+logger = logging.getLogger(__name__)
 
 
 @task()

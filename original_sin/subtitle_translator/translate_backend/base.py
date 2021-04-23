@@ -153,8 +153,10 @@ class SubtitleParser(object):
         """ May be loaded by sub file or existing translated cache """
         # logger.info('load')
         if cache:
+            logger.info('Load from cache')
             return self.load_cache(cache)
         try:
+            logger.info('Load from file')
             file = file.read()
             self.pre_data, self.old_data, self.post_data = self._parse(file)
             self.data = self.old_data.copy()
