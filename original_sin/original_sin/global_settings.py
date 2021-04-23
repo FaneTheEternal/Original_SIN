@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import dj_database_url
 
@@ -29,6 +30,9 @@ class GlobalSettings(BasicSettings):
 
             # all bots
             'bots.apps.BotsConfig',
+
+            # flutter
+            'django_flutter.apps.DjangoFlutterConfig',
         ]
         return apps
 
@@ -73,17 +77,8 @@ class GlobalSettings(BasicSettings):
     # STATIC_ROOT = os.path.join(BasicSettings.BASE_DIR, 'staticfiles')
     STATIC_URL = '/static/'
     STATICFILES_STORAGE = ''
-    MEDIA_URL = '/static/'
+    MEDIA_URL = '/media/'
     DEFAULT_FILE_STORAGE = ''
-
-    # Extra places for collectstatic to find static files.
-    # STATICFILES_DIRS = (
-    #     os.path.join(BasicSettings.BASE_DIR, 'static'),
-    # )
-
-    # Simplified static file serving.
-    # https://warehouse.python.org/project/whitenoise/
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
     DEFAULT_ADMIN_USERNAME = 'admin'
     DEFAULT_ADMIN_PASSWORD = 'admin'
@@ -95,6 +90,12 @@ class GlobalSettings(BasicSettings):
     AWS_DEFAULT_ACL = None
     AWS_S3_REGION_NAME = ''
     AWS_S3_SIGNATURE_VERSION = 's3v4'
+
+    # Development flutter path
+    FLUTTER_PROJECTS_PATH = Path(BasicSettings.BASE_DIR).parent.joinpath('flutter')
+    # Release flutter apps
+    USE_RELEASE_FLUTTER_APPS_LIST = False
+    FLUTTER_APPS = []
 
 
 class EnvironmentLoadSettings(GlobalSettings):
