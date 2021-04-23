@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 
 import dj_database_url
+from huey import RedisHuey
+from redis import ConnectionPool
 
 from original_sin.basic_settings import BasicSettings
 
@@ -159,4 +161,11 @@ class EnvironmentLoadSettings(GlobalSettings):
                     conn_max_age=600,
                     ssl_require=True
                 )
+
+        redis_url = env.get('REDIS_TLS_URL', None) or env.get('REDIS_URL')
+        pool = ConnectionPool.from_url(redis_url, max_connections=20)
+
+        # Huey
+        huey = RedisHuey('redis-huey', connection_pool=pool)
+        base['HUEY'] = huey
         return base
