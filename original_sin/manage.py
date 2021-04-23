@@ -7,7 +7,7 @@ import sys
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'original_sin.settings')
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(format='[%(levelname)s]%(message)s', level=logging.INFO)
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
