@@ -13,7 +13,7 @@ def translate_invoke(user: SimpleUser, parser: SubtitleParser):
     print('translate_invoke')
     user.translators_cache = None
     user.save()
-    parser.load(file=Path(user.file.path))
+    parser.load(file=user.file)
     translators = []
     for name in user.translators:
         translator = get_translator(name)

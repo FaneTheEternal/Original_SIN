@@ -42,3 +42,9 @@ def construct(*objects, **kwargs):
         except Exception as e:
             print(e)
     return result
+
+
+def get_filename(name):
+    if '/' in name:
+        name = name[name.rfind('/') + 1:]
+    return name

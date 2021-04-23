@@ -4,6 +4,8 @@ from pathlib import Path
 from typing import List, Tuple, Any, Dict, Union
 from uuid import uuid4
 
+from ninja import File
+
 logger = logging.getLogger(__name__)
 
 
@@ -147,13 +149,13 @@ class SubtitleParser(object):
     def __init__(self):
         assert self.file_ext, 'You must be specified `file_ext`'
 
-    def load(self, *, file: Path = None, cache: CACHE_TYPE = None):
+    def load(self, *, file: File = None, cache: CACHE_TYPE = None):
         """ May be loaded by sub file or existing translated cache """
         # logger.info('load')
         if cache:
             return self.load_cache(cache)
         try:
-            file = open(file, 'r', encoding='utf-8').read()
+            file = file.read()
             self.pre_data, self.old_data, self.post_data = self._parse(file)
             self.data = self.old_data.copy()
             self.loaded = True

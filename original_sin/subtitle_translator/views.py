@@ -11,6 +11,7 @@ from django.utils.timezone import now
 from django.views.decorators.csrf import csrf_exempt
 from ninja import NinjaAPI, UploadedFile, File
 
+from core.utility import get_filename
 from subtitle_translator.logic import prepare_env, save_changes
 from subtitle_translator.models import SimpleUser, NameLessFile
 from subtitle_translator.schemas import LoginSchema, FileSchema, TryLoginSchema, ParserSchema, TranslatorsSchema, \
@@ -203,22 +204,10 @@ def get_result(request, obj: LoginSchema):
         user, parser = prepare_env(uid)
         data = parser.build()
         prefix = f'[{now()}]'
-        file_name = prefix + os.path.basename(user.file.name)
+        file_name = prefix + get_filename(user.file.name)
         user.file_result.save(file_name, ContentFile(data))
         save_changes(user, parser)
-        return {'result': 'ok', 'file': os.path.basename(user.file_result.name)}
-    except Exception as e:
-        return {
-            'result': 'error',
-            'error': str(e)
-        }
-
-
-@api.post('/download')
-def just_download(request, uid):
-    try:
-        user, _ = prepare_env(uid, load_parser=False)
-        return {'result': user.file_result.url}
+        return {'result': 'ok', 'file': file_name}
     except Exception as e:
         return {
             'result': 'error',
@@ -232,7 +221,6 @@ def download_view(request, *args, **kwargs):
         data = json.loads(request.body)
         uid = data['uid']
         user, _ = prepare_env(uid, load_parser=False)
-        filename = user.file_result.path
-        response = FileResponse(open(filename, 'rb'))
+        response = FileResponse(user.file_result.open())
         return response
     return HttpResponse('qq')
