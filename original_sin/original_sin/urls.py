@@ -23,6 +23,8 @@ urlpatterns = [
     path('old_bot/', include('old_bot.urls')),
 
     path('flutter/', include('django_flutter.urls')),
+
+    path('subtitle_translator/', include('subtitle_translator.urls')),
 ]
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
