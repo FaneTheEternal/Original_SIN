@@ -10,4 +10,4 @@ db.sqlite3
 
 local_settings.py
 
-flutter/
+/flutter/
