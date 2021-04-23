@@ -1,3 +1,4 @@
+import logging
 import sys
 from hashlib import sha256
 import traceback
@@ -20,6 +21,8 @@ from subtitle_translator.tasks import translate_invoke
 from subtitle_translator.utility import allowed_subtitles, allowed_translations, get_parser
 
 api = NinjaAPI()
+
+logger = logging.getLogger(__name__)
 
 
 # Info views
@@ -56,6 +59,8 @@ def login_view(request, login: TryLoginSchema):
         response['parser'] = user.parser
         response['translators'] = user.translators
         response['translators_params'] = user.translators_params
+
+    logger.info(f'Login {user.uid}')
     return response
 
 
