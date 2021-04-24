@@ -211,7 +211,8 @@ def get_result(request, obj: LoginSchema):
         data = parser.build()
         prefix = f'[{now()}]'
         file_name = prefix + get_filename(user.file.name)
-        user.file_result.save(file_name, ContentFile(data))
+        file = ContentFile(data.encode('utf-8'))
+        user.file_result.save(file_name, file)
         save_changes(user, parser)
         return {'result': 'ok', 'file': file_name}
     except Exception as e:
