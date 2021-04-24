@@ -131,7 +131,7 @@ def set_translators_params(request, obj: TranslatorParamsSchema):
         user.translators_params = dict(
             src=src,
             dest=dest,
-            force=False,
+            force=True,
         )
         save_changes(user, parser)
         return {'result': 'ok'}
