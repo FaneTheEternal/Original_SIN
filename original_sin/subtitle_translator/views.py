@@ -215,9 +215,11 @@ def get_result(request, obj: LoginSchema):
         save_changes(user, parser)
         return {'result': 'ok', 'file': file_name}
     except Exception as e:
+        import traceback
         return {
             'result': 'error',
-            'error': str(e)
+            'error': str(e),
+            'traceback': traceback.format_exc(),
         }
 
 
