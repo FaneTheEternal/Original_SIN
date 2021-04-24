@@ -157,7 +157,7 @@ class SubtitleParser(object):
             return self.load_cache(cache)
         try:
             logger.info('Load from file')
-            file = file.read()
+            file = file.read(mode='r')
             self.pre_data, self.old_data, self.post_data = self._parse(file)
             self.data = self.old_data.copy()
             self.loaded = True
