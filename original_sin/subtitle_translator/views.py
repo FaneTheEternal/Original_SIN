@@ -59,8 +59,6 @@ def login_view(request, login: TryLoginSchema):
         response['parser'] = user.parser
         response['translators'] = user.translators
         response['translators_params'] = user.translators_params
-
-    logger.info(f'Login {user.uid}')
     return response
 
 
@@ -165,13 +163,15 @@ def invoke(request, obj: LoginSchema):
     uid = obj.uid
     try:
         user, parser = prepare_env(uid)
-        print('Try INVOKE')
         translate_invoke(user, parser)
         return {'result': 'ok'}
     except Exception as e:
+        import traceback
+        # print(traceback.format_exc())
         return {
             'result': 'error',
-            'error': str(e)
+            'error': str(e),
+            'traceback': traceback.format_exc(),
         }
 
 
