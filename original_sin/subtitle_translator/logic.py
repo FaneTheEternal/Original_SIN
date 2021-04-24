@@ -17,7 +17,7 @@ def prepare_env(uid: str, *, load_parser=True) -> Tuple[SimpleUser, Optional[Sub
     if user.translators_cache:
         parser.load(cache=user.translators_cache)
     else:
-        parser.load(file=user.file.path)
+        parser.load(file=user.file)
     return user, parser
 
 
