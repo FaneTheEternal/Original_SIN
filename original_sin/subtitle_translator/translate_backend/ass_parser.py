@@ -37,9 +37,9 @@ class AssParser(SubtitleParser):
     row_value_class = AssValue
 
     def _parse(self, file) -> Tuple[str, List[Any], str]:
-        find = '[Events]\n'
+        find = '[Events]'
         assert find in file, f'Is not .ass file `{file[:100]}`'
-        pos = file.index(find) + len(find)
+        pos = file.index(find) + len(find) + 1
         pre, data = file[:pos], file[pos:]
         end = ''
 
