@@ -20,11 +20,11 @@ class GoogleTranslator(BaseTranslator):
         self.translator = Translator()
 
     def _detect(self, data):
-        logging.info(f'Detect `{data}`')
+        # logging.info(f'Detect `{data}`')
         result = self.translator.detect(data).lang
         return result
 
     def _translate(self, data):
-        logging.info(f'Translate `{data}`')
+        # logging.info(f'Translate `{data}`')
         result = self.translator.translate(data, dest=self.dest, src=self.src).text or data
         return result

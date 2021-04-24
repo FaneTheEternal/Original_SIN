@@ -1,6 +1,7 @@
 import logging
 from pathlib import Path
 
+from django.core.files.base import ContentFile
 from django.core.management import BaseCommand
 
 from subtitle_translator.translate_backend import GoogleTranslator, AssParser, DummyTranslator
@@ -15,16 +16,17 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         file = Path(options['sub_file'][0])
         path = file.parent
+        result_path = path.joinpath('qq.ass')
+        file = ContentFile(open(file, mode='rb').read())
 
-        transaction = GoogleTranslator(src='en', dest='ru', force=False)
-        logger.info(file.parent)
+        transaction = DummyTranslator(src='en', dest='ru', force=True)
         parser = AssParser()
         parser.load(file=file)
         try:
-            pass
+            # raise RuntimeError('INTERRUPTION')
             parser.invoke(transaction)
             result = parser.build()
-            logger.info(result)
+            open(result_path, mode='w').write(result.replace('\r', ''))
         except Exception as e:
             logger.error(e)
-            raise
+            # raise

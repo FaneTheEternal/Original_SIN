@@ -26,7 +26,7 @@ class BaseTranslator(object):
         except AssertionError:
             logger.error('Specified src does not match detect src')
             result = data
-        logger.info(f'Result `{result}`')
+        # logger.info(f'Result `{result}`')
         return result
 
     def _translate(self, data):
@@ -216,7 +216,6 @@ class SubtitleParser(object):
         # logger.info('fill_defaults')
         self._check_load()
         self.data = []
-        print(self.translated.keys())
         translator = list(self.translated.keys())[0]
         for value, row in zip(self.translated[translator], self.old_data):
             self.data.append(self.row_class(row.pre_val, value, row.post_val))

@@ -43,14 +43,16 @@ class AssParser(SubtitleParser):
         pre, data = file[:pos], file[pos:]
         end = ''
 
-        data = data.split('\n')
+        data = [row.strip() for row in data.split('\n')]
+        while 'Format' not in data[0]:
+            pre += data.pop(0)
         num = data[0].count(',')  # Format: ...
         pre += f'\n{data.pop(0)}'
         rows = []
 
         def index_with_counter(_row):
             index = 0
-            if row:
+            if _row:
                 for _ in range(num):
                     index = _row.index(',', index) + 1
             return index
@@ -64,4 +66,3 @@ class AssParser(SubtitleParser):
             # logger.info(f'[{row.pre_val}][{row.value}][{row.post_val}]')
             rows.append(row)
         return pre, rows, end
-
