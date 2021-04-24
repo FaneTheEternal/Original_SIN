@@ -38,7 +38,7 @@ class AssParser(SubtitleParser):
 
     def _parse(self, file) -> Tuple[str, List[Any], str]:
         find = '[Events]\n'
-        assert find in file
+        assert find in file, 'Is not .ass file'
         pos = file.index(find) + len(find)
         pre, data = file[:pos], file[pos:]
         end = ''
