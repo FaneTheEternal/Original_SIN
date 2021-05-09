@@ -23,11 +23,10 @@ def flutter_view(request: Union[HttpRequest, WSGIRequest], path: str = None, *ar
         if not path or path == index:
             template = f'{app_name}/{index}'
             base_path = f'{request.scheme}://{request.META["HTTP_HOST"]}/flutter/{app_name}/'
-            content = dict(base_path=base_path)
-            return SimpleTemplateResponse(template, context=content)
+            context = dict(base_path=base_path)
+            return SimpleTemplateResponse(template, context=context)
         file = Path(settings.BASE_DIR, app_name, 'flutter', path)
         content_type = 'application/javascript' if path.endswith('.js') else None
-        logger.info(f'FLUTTER SEND `{file}`; custom type `{content_type}`')
         return FileResponse(open(file, 'rb'), content_type=content_type)
     except Exception as e:
         logger.error(e)

@@ -18,6 +18,8 @@ class GlobalSettings(BasicSettings):
             # tasks app
             'huey.contrib.djhuey',
 
+            'ordered_model',
+
             # django-storages
             # 'storages',
 
@@ -38,6 +40,9 @@ class GlobalSettings(BasicSettings):
 
             # subtitle translator
             'subtitle_translator.apps.SubtitleTranslatorConfig',
+
+            # atheneum
+            'atheneum.apps.AtheneumConfig',
         ]
         return apps
 

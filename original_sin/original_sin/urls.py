@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, re_path, include
 from django.views.generic import RedirectView
@@ -25,6 +27,8 @@ urlpatterns = [
     path('flutter/', include('django_flutter.urls')),
 
     path('subtitle_translator/', include('subtitle_translator.urls')),
+
+    path('atheneum/', include('atheneum.urls')),
 ]
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
@@ -32,3 +36,5 @@ favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 urlpatterns += [
     re_path(r'^favicon\.ico$', favicon_view)
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
