@@ -1,3 +1,4 @@
+import uuid
 from typing import Optional
 
 from django.db import models
@@ -33,6 +34,12 @@ class Book(UniqueMixin, models.Model):
         return self.cover and self.cover.url
 
 
+def page_filename(instance, filename):
+    book = instance.book
+    page_name = uuid.uuid4().hex
+    return '/'.join(['books', f'{book.name}_{book.uid}', page_name])
+
+
 class Page(OrderedModel):
     book = models.ForeignKey(
         to=Book,
@@ -42,6 +49,7 @@ class Page(OrderedModel):
     file = models.FileField(
         verbose_name='Скан',
         null=True, blank=True,
+        upload_to=page_filename,
     )
     name = models.CharField(
         verbose_name='Название',
