@@ -52,6 +52,7 @@ class FlutterWrapper(object):
             cmd += ['--release']
         if self.build_params:
             cmd += self.build_params
+        self.logger.info(f'Run `{cmd}`')
         call = subprocess.Popen(
             cmd,
             cwd=path,
