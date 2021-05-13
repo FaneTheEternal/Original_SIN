@@ -31699,9 +31699,10 @@ q.Q2()
 q.aV()
 P.jT(o.h(p,"pages"))}return P.a1(null,r)}})
 return P.a2($async$lF,r)},
-Q2:function(){var s,r,q=this.y
-C.b.c0(q,new O.JP())
-for(s=q.length,r=0;r<s;++r)q[r]=new O.hM(q[r].a,r,"")},
+Q2:function(){var s,r,q,p=this.y
+C.b.c0(p,new O.JP())
+for(s=p.length,r=0;r<s;++r){q=p[r]
+p[r]=new O.hM(q.a,r,q.c)}},
 gG5:function(){var s=this
 if(!s.z){s.lF()
 s.z=!0}return s.y},

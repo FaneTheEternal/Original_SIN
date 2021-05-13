@@ -32,6 +32,7 @@ class Command(BaseCommand):
             app_list=app_names,
             release=True,
             flutter_projects_path=settings.FLUTTER_PROJECTS_PATH,
-            logger=logger
+            logger=logger,
+            build_params=['--web-renderer', 'html'],
         )
         flutter.invoke()
