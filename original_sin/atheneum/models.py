@@ -37,7 +37,8 @@ class Book(UniqueMixin, models.Model):
 def page_filename(instance, filename):
     book = instance.book
     page_name = uuid.uuid4().hex
-    return '/'.join(['books', f'{book.name}_{book.uid}', page_name])
+    ext = filename[filename.rindex('.'):]
+    return '/'.join(['books', f'{book.name}_{book.uid}', f'{instance.order}_{page_name}{ext}'])
 
 
 class Page(OrderedModel):
