@@ -43,6 +43,11 @@ class Page(OrderedModel):
         verbose_name='Скан',
         null=True, blank=True,
     )
+    name = models.CharField(
+        verbose_name='Название',
+        null=True, blank=True,
+        max_length=64,
+    )
     order_with_respect_to = 'book'
 
     class Meta(OrderedModel.Meta):

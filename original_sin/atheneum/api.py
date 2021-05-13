@@ -50,5 +50,5 @@ def get_pages(obj: BookSchema):
     """
     assert obj.uid, 'stub'
     book = Book.objects.get(uid=obj.uid)
-    pages = [dict(url=p.file.url, order=p.order) for p in book.pages.all()]
+    pages = [dict(url=p.file.url, order=p.order, name=p.name) for p in book.pages.all()]
     return dict(pages=pages)

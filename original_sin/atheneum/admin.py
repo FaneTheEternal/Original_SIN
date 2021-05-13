@@ -8,7 +8,7 @@ admin.site.register(models.Book)
 
 
 class PageAdmin(OrderedModelAdmin):
-    list_display = ('book', 'file', 'move_up_down_links')
+    list_display = ('book', 'name', 'file', 'move_up_down_links')
 
 
 admin.site.register(models.Page, PageAdmin)
