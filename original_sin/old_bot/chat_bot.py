@@ -81,7 +81,7 @@ def execute(data: dict):
         return QuestRoute.execute(vk, user, text)
 
     elif user.status == VkUser.INCOMING:
-        return Incoming
+        return Incoming.execute(vk, user, text)
 
     elif user.status == VkUser.SPECIALIST:
         return  # None
