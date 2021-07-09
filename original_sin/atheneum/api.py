@@ -39,7 +39,9 @@ def all_books():
     """
     list of all books
     """
-    return dict(books=get_books_review())
+    books = Book.objects.all()
+    serialise = [dict(name=book.name, author=book.author, cover=book.cover_url, uid=book.uid) for book in books]
+    return dict(books=serialise)
 
 
 @api.post('/get_pages_urls')

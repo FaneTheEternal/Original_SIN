@@ -10,7 +10,6 @@ def get_books() -> List[Tuple[str, str]]:
 def get_books_review() -> List[Dict[str, str]]:
     books = Book.objects.all()
     books = [dict(name=book.name, author=book.author, cover=book.cover_url, uid=book.uid) for book in books]
-    print(books)
     return books
 
 
