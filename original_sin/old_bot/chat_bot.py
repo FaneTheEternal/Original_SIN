@@ -1,3 +1,5 @@
+import re
+
 import vk_api
 from django.conf import settings
 from vk_api.utils import get_random_id
@@ -6,14 +8,13 @@ from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 from .models import VkUser
 from .chat_bot_texts import TEXTS
 
-from .sections import QuestRoute
+from .sections import QuestRoute, Incoming
 
 COMMON_COMMANDS = [
     'Расписание',
     'Схема корпусов',
     'Стипендии',
     'Общежития',
-    'Поступающим',
     'Начать',
 ]
 
@@ -24,6 +25,7 @@ SPECIAL_COMMANDS = [
     'Справочник контактов',
     'Тесты',
     'Задать вопрос специалисту',
+    'Поступающим',
 ]
 
 ATTACHMENTS = {
@@ -78,6 +80,9 @@ def execute(data: dict):
     elif user.status == VkUser.QUEST:
         return QuestRoute.execute(vk, user, text)
 
+    elif user.status == VkUser.INCOMING:
+        return Incoming
+
     elif user.status == VkUser.SPECIALIST:
         return  # None
 
@@ -97,6 +102,11 @@ def execute(data: dict):
             user.save()
             keyboard = Contacts.keyboard()
             message = TEXTS.get(text, '-')
+        elif text == 'Поступающим':
+            user.status = VkUser.INCOMING
+            user.save()
+            keyboard = Incoming.keyboard()
+            message = TEXTS.get(text, '-')
 
     elif text in COMMON_COMMANDS:
         if text == START_COMMAND:
@@ -108,9 +118,10 @@ def execute(data: dict):
     else:
         return sleep(vk, user)
 
+    message = re.sub(' +', ' ', message)
     vk.messages.send(
         peer_id=str(user_id),
-        message=message.replace('    ', ''),
+        message=message,
         random_id=get_random_id(),
         keyboard=keyboard.get_keyboard(),
         attachment=attachment
