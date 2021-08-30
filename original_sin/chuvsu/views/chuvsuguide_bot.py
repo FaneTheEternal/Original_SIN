@@ -332,7 +332,7 @@ class StartChat(ChatBase):
                 current=cls.__name__,
             ),
             user_guid=message['chat']['id']
-        )
+        )[0]
 
     @classmethod
     def execute(cls, message, join=False):
