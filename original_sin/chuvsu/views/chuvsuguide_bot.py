@@ -347,6 +347,14 @@ class StartChat(ChatBase):
             return chat.execute(message)
         return super(StartChat, cls).execute(message)
 
+    @classmethod
+    def keyboard(cls):
+        markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
+        if cls.OPTIONS:
+            markup.add(*cls.OPTIONS, row_width=2)
+        return markup
+
+
 
 @func_once
 def all_chats():
