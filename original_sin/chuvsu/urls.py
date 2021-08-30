@@ -8,4 +8,8 @@ urlpatterns = [
         r'^$',
         views.index,
     ),
+    url(
+        r'^chuvsuguide_bot$',
+        views.chuvsuguide_bot.index,
+    )
 ]

@@ -29,6 +29,8 @@ urlpatterns = [
     path('subtitle_translator/', include('subtitle_translator.urls')),
 
     path('atheneum/', include('atheneum.urls')),
+
+    path('chuvsu/', include('chuvsu.urls')),
 ]
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
