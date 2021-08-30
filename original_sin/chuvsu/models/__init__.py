@@ -20,9 +20,9 @@ class BotProfile2(models.Model):
         back = self.back.split(';')
         if back:
             back = back[-1]
-            for item in pool:
-                if item.__name__ == back:
-                    return item
+            for name, chat in pool.items():
+                if name == back:
+                    return chat
         return None
 
     def set_step(self, new):
