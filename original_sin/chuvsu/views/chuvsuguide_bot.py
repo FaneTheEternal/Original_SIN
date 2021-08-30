@@ -1,3 +1,4 @@
+import json
 import logging
 
 import telebot
@@ -20,7 +21,7 @@ bot.set_webhook(url=f'https://{domain}/chuvsu/chuvsuguide_bot')
 def index(request):
     if request.method == 'POST':
         try:
-            message = request.json['message']
+            message = json.loads(request.body)['message']
             StartChat.execute(message)
         except Exception as e:
             import traceback
