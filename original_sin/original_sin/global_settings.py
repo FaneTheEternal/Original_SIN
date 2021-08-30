@@ -140,6 +140,8 @@ class GlobalSettings(BasicSettings):
         },
     }
 
+    CHUVSUGUIDE_BOT_TOKEN = ''
+
 
 class EnvironmentLoadSettings(GlobalSettings):
     def get_settings(self):
