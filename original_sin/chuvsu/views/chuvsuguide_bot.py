@@ -1,5 +1,7 @@
+import inspect
 import json
 import logging
+import sys
 
 import telebot
 from django.conf import settings
@@ -349,7 +351,7 @@ class StartChat(ChatBase):
 @func_once
 def all_chats():
     chats = dict()
-    for k, v in globals().items():
-        if issubclass(v, ChatBase):
-            chats[k] = v
+    for name, obj in inspect.getmembers(sys.modules[__name__]):
+        if inspect.isclass(obj) and issubclass(obj, ChatBase):
+            chats[name] = obj
     return chats
