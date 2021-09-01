@@ -119,6 +119,7 @@ def execute(data: dict):
         return sleep(vk, user)
 
     message = re.sub(' +', ' ', message)
+    message = re.sub(r'\n +', '\n', message)
     vk.messages.send(
         peer_id=str(user_id),
         message=message,
@@ -249,7 +250,7 @@ class Contacts:
 
         vk.messages.send(
             peer_id=str(user.user_id),
-            message=re.sub(' +', ' ', message),
+            message=re.sub(r'\n +', '\n', re.sub(' +', ' ', message)),
             random_id=get_random_id(),
             keyboard=keyboard.get_keyboard(),
             attachment=attachment
