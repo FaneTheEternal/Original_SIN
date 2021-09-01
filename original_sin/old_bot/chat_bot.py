@@ -127,28 +127,28 @@ def home_keyboard(keyboard=None, one_time=True):
     if keyboard is None:
         keyboard = VkKeyboard(one_time=one_time)
     keyboard.add_button(
-        'Справочник контактов', color=VkKeyboardColor.DEFAULT
+        'Справочник контактов', color=VkKeyboardColor.SECONDARY
     )
     keyboard.add_button(
-        'Схема корпусов', color=VkKeyboardColor.DEFAULT
-    )
-    keyboard.add_line()
-    keyboard.add_button(
-        'Расписание', color=VkKeyboardColor.DEFAULT
-    )
-    keyboard.add_button(
-        'Стипендии', color=VkKeyboardColor.DEFAULT
+        'Схема корпусов', color=VkKeyboardColor.SECONDARY
     )
     keyboard.add_line()
     keyboard.add_button(
-        'Общежития', color=VkKeyboardColor.DEFAULT
+        'Расписание', color=VkKeyboardColor.SECONDARY
     )
     keyboard.add_button(
-        'Поступающим', color=VkKeyboardColor.DEFAULT
+        'Стипендии', color=VkKeyboardColor.SECONDARY
     )
     keyboard.add_line()
     keyboard.add_button(
-        'Задать вопрос специалисту', color=VkKeyboardColor.DEFAULT
+        'Общежития', color=VkKeyboardColor.SECONDARY
+    )
+    keyboard.add_button(
+        'Поступающим', color=VkKeyboardColor.SECONDARY
+    )
+    keyboard.add_line()
+    keyboard.add_button(
+        'Задать вопрос специалисту', color=VkKeyboardColor.SECONDARY
     )
     keyboard.add_line()
     keyboard.add_button(
@@ -161,7 +161,7 @@ def specialist_keyboard(keyboard=None, one_time=True):
     if keyboard is None:
         keyboard = VkKeyboard(one_time=one_time)
     keyboard.add_button(
-        'Вернуться к боту', color=VkKeyboardColor.DEFAULT
+        'Вернуться к боту', color=VkKeyboardColor.SECONDARY
     )
     return keyboard
 
@@ -259,7 +259,7 @@ class Contacts:
         for i in range(len(cls.WORDS)):
             keyboard.add_button(
                 cls.WORDS[i],
-                color=VkKeyboardColor.DEFAULT
+                color=VkKeyboardColor.SECONDARY
             )
             if i in NEW_LINE:
                 keyboard.add_line()
