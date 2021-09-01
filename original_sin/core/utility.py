@@ -1,7 +1,10 @@
+import logging
 import re
 
 from vk_api.keyboard import VkKeyboard
 from vk_api.utils import get_random_id
+
+logger = logging.getLogger(__name__)
 
 
 def func_once(func):
