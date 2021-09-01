@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 bot = telebot.TeleBot(getattr(settings, 'CHUVSUGUIDE_BOT_TOKEN'))
 domain = getattr(settings, 'ALLOWED_HOSTS')[0]  # awhile crutch
 bot.set_webhook(url=f'https://{domain}/chuvsu/chuvsuguide_bot')
+bot.remove_webhook()
 
 
 @csrf_exempt
