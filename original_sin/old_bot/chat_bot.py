@@ -5,6 +5,7 @@ from django.conf import settings
 from vk_api.utils import get_random_id
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 
+from core.utility import vk_send
 from .models import VkUser
 from .chat_bot_texts import TEXTS
 
@@ -45,8 +46,8 @@ ATTACHMENTS = {
         'photo-88277426_457239087',
         'photo-88277426_457239088',
         'photo-88277426_457239089',
-        'photo-88277426_457239090',
-        'photo-88277426_457239091',
+        # 'photo-88277426_457239090',
+        # 'photo-88277426_457239091',
     ]
 }
 
@@ -118,15 +119,7 @@ def execute(data: dict):
     else:
         return sleep(vk, user)
 
-    message = re.sub(' +', ' ', message)
-    message = re.sub(r'\n +', '\n', message)
-    vk.messages.send(
-        peer_id=str(user_id),
-        message=message,
-        random_id=get_random_id(),
-        keyboard=keyboard.get_keyboard(),
-        attachment=attachment
-    )
+    vk_send(vk, user_id, message, keyboard, attachment)
 
 
 def home_keyboard(keyboard=None, one_time=True):
