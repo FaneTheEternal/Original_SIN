@@ -62,6 +62,8 @@ def vk_send(vk, user_id, message: str, keyboard, attachment=None):
     message = message.strip()
     message = re.sub(r' +', ' ', message)
     message = message.replace('\n ', '\n')
+    if isinstance(attachment, (list, tuple, set)):
+        attachment = ','.join(attachment)
     return vk.messages.send(
         peer_id=str(user_id),
         message=message,
