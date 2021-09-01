@@ -92,7 +92,7 @@ class QuestBase(object):
     title = None
     greetings = None
     attachment = None
-    color = VkKeyboardColor.PRIMARY
+    color = VkKeyboardColor.DEFAULT
     IGNORE = ['question', 'attachment']
 
     """

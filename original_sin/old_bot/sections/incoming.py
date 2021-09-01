@@ -16,7 +16,7 @@ def make_keyboard(cls, keyboard=None, one_time=True):
     for i in range(len(cls.WORDS)):
         keyboard.add_button(
             cls.WORDS[i],
-            color=VkKeyboardColor.PRIMARY
+            color=VkKeyboardColor.DEFAULT
         )
         if i in NEW_LINE:
             keyboard.add_line()
