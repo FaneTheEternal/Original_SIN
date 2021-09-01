@@ -72,6 +72,9 @@ def execute(data: dict):
     if created:
         return greeting(vk, user)
 
+    if text == START_COMMAND:
+        return go_home(vk, user)
+
     elif text == HOME_COMMAND:
         return go_home(vk, user)
 
@@ -110,8 +113,6 @@ def execute(data: dict):
             message = TEXTS.get(text, '-')
 
     elif text in COMMON_COMMANDS:
-        if text == START_COMMAND:
-            return go_home(vk, user)
         keyboard = home_keyboard()
         message = TEXTS.get(text, ' ')
         attachment = ATTACHMENTS.get(text, None)
