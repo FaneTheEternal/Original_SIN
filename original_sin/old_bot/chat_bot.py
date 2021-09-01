@@ -127,28 +127,28 @@ def home_keyboard(keyboard=None, one_time=True):
     if keyboard is None:
         keyboard = VkKeyboard(one_time=one_time)
     keyboard.add_button(
-        'Справочник контактов', color=VkKeyboardColor.PRIMARY
+        'Справочник контактов', color=VkKeyboardColor.DEFAULT
     )
     keyboard.add_button(
-        'Схема корпусов', color=VkKeyboardColor.PRIMARY
-    )
-    keyboard.add_line()
-    keyboard.add_button(
-        'Расписание', color=VkKeyboardColor.PRIMARY
-    )
-    keyboard.add_button(
-        'Стипендии', color=VkKeyboardColor.PRIMARY
+        'Схема корпусов', color=VkKeyboardColor.DEFAULT
     )
     keyboard.add_line()
     keyboard.add_button(
-        'Общежития', color=VkKeyboardColor.PRIMARY
+        'Расписание', color=VkKeyboardColor.DEFAULT
     )
     keyboard.add_button(
-        'Поступающим', color=VkKeyboardColor.PRIMARY
+        'Стипендии', color=VkKeyboardColor.DEFAULT
     )
     keyboard.add_line()
     keyboard.add_button(
-        'Задать вопрос специалисту', color=VkKeyboardColor.PRIMARY
+        'Общежития', color=VkKeyboardColor.DEFAULT
+    )
+    keyboard.add_button(
+        'Поступающим', color=VkKeyboardColor.DEFAULT
+    )
+    keyboard.add_line()
+    keyboard.add_button(
+        'Задать вопрос специалисту', color=VkKeyboardColor.DEFAULT
     )
     keyboard.add_line()
     keyboard.add_button(
@@ -161,7 +161,7 @@ def specialist_keyboard(keyboard=None, one_time=True):
     if keyboard is None:
         keyboard = VkKeyboard(one_time=one_time)
     keyboard.add_button(
-        'Вернуться к боту', color=VkKeyboardColor.PRIMARY
+        'Вернуться к боту', color=VkKeyboardColor.DEFAULT
     )
     return keyboard
 
@@ -259,7 +259,7 @@ class Contacts:
         for i in range(len(cls.WORDS)):
             keyboard.add_button(
                 cls.WORDS[i],
-                color=VkKeyboardColor.PRIMARY
+                color=VkKeyboardColor.DEFAULT
             )
             if i in NEW_LINE:
                 keyboard.add_line()
