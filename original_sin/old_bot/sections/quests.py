@@ -2073,7 +2073,7 @@ class ReadyForTheStudentBodyQuest(QuestBase):
                 'column': 'Default',
                 'points': 0
             },
-            'получают все одинаково – 1900 рублей': {
+            'получают все одинаково – 2000 рублей': {
                 'column': 'Default',
                 'points': 2
             },

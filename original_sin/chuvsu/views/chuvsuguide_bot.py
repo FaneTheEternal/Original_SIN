@@ -14,9 +14,11 @@ from core.utility import func_once
 
 logger = logging.getLogger(__name__)
 
-bot = telebot.TeleBot(getattr(settings, 'CHUVSUGUIDE_BOT_TOKEN'))
-domain = getattr(settings, 'ALLOWED_HOSTS')[0]  # awhile crutch
-bot.set_webhook(url=f'https://{domain}/chuvsu/chuvsuguide_bot')
+token = getattr(settings, 'CHUVSUGUIDE_BOT_TOKEN', None)
+if token:
+    bot = telebot.TeleBot(token)
+    domain = getattr(settings, 'ALLOWED_HOSTS')[0]  # awhile crutch
+    bot.set_webhook(url=f'https://{domain}/chuvsu/chuvsuguide_bot')
 
 
 @csrf_exempt

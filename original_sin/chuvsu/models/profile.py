@@ -32,11 +32,9 @@ class QuestProfile(models.Model):
         default='{}'
     )
 
-    @receiver(post_save, sender=VkUser)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            QuestProfile.objects.create(user=instance)
 
-    @receiver(post_save, sender=VkUser)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.quest_profile.save()
+@receiver(post_save, sender=VkUser)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        QuestProfile.objects.create(user=instance)
+    instance.quest_profile.save()
