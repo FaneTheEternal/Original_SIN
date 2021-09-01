@@ -1,3 +1,9 @@
+import re
+
+from vk_api.keyboard import VkKeyboard
+from vk_api.utils import get_random_id
+
+
 def func_once(func):
     """A decorator that runs a function only once."""
     attrname = '_once_result'
@@ -48,3 +54,18 @@ def get_filename(name):
     if '/' in name:
         name = name[name.rfind('/') + 1:]
     return name
+
+
+def vk_send(vk, user_id, message: str, keyboard, attachment=None):
+    if isinstance(keyboard, VkKeyboard):
+        keyboard = keyboard.get_keyboard()
+    message = message.strip()
+    message = re.sub(r' +', ' ', message)
+    message = message.replace('\n ', '\n')
+    return vk.messages.send(
+        peer_id=str(user_id),
+        message=message,
+        random_id=get_random_id(),
+        keyboard=keyboard,
+        attachment=attachment
+    )
