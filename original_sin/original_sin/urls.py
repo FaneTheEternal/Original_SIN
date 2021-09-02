@@ -31,6 +31,8 @@ urlpatterns = [
     path('atheneum/', include('atheneum.urls')),
 
     path('chuvsu/', include('chuvsu.urls')),
+
+    path('is_web/', include('is_web.urls')),
 ]
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)

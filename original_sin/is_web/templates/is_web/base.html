@@ -1,0 +1,20 @@
+{% extends 'is_web/bootstrap.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}
+    {% if tab == 'news' %}
+        Новости
+    {% elif tab == 'catalog' %}
+        Каталог товаров/прайс услуг
+    {% elif tab == 'contacts' %}
+        Контактные данные
+    {% elif tab == 'info' %}
+        Информация об организации
+    {% endif %}
+{% endblock %}
+
+{% block bootstrap4_content %}
+    {% include 'is_web/navbar.html' with tab=tab %}
+    {% block tab_content %}{% endblock %}
+{% endblock bootstrap4_content %}

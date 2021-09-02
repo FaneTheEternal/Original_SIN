@@ -19,6 +19,7 @@ class GlobalSettings(BasicSettings):
             'huey.contrib.djhuey',
 
             'ordered_model',
+            'bootstrap4',
 
             # django-storages
             # 'storages',
@@ -43,6 +44,9 @@ class GlobalSettings(BasicSettings):
 
             # atheneum
             'atheneum.apps.AtheneumConfig',
+
+            # Информационная безопасность web-ресурсов
+            'is_web.apps.IsWebConfig',
         ]
         return apps
 
@@ -141,6 +145,10 @@ class GlobalSettings(BasicSettings):
     }
 
     CHUVSUGUIDE_BOT_TOKEN = ''
+
+    BOOTSTRAP4 = {
+        'include_jquery': 'full'
+    }
 
 
 class EnvironmentLoadSettings(GlobalSettings):

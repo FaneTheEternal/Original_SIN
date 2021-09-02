@@ -1,0 +1,43 @@
+{% load static %}
+
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'is_web/shop-icon.jpg' %}" width="50" height="50" class="d-inline-block align-top"
+                 alt="">
+            Some Shop
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item{% if tab == 'news' %} active{% endif %}">
+                    <a class="nav-link" href="{% url 'news' %}">
+                        Новости
+                        {% if tab == 'news' %} <span class="sr-only">(текущая)</span>{% endif %}
+                    </a>
+                </li>
+                <li class="nav-item{% if tab == 'catalog' %} active{% endif %}">
+                    <a class="nav-link" href="{% url 'catalog' %}">
+                        Каталог товаров/прайс услуг
+                        {% if tab == 'catalog' %} <span class="sr-only">(текущая)</span>{% endif %}
+                    </a>
+                </li>
+                <li class="nav-item{% if tab == 'contacts' %} active{% endif %}">
+                    <a class="nav-link" href="{% url 'contacts' %}">
+                        Контактные данные
+                        {% if tab == 'contacts' %} <span class="sr-only">(текущая)</span>{% endif %}
+                    </a>
+                </li>
+                <li class="nav-item{% if tab == 'info' %} active{% endif %}">
+                    <a class="nav-link" href="{% url 'info' %}">
+                        Информация об организации
+                        {% if tab == 'info' %} <span class="sr-only">(текущая)</span>{% endif %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
