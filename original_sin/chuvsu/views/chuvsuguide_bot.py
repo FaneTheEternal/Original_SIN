@@ -91,8 +91,8 @@ class ChatBase:
                 if option in cls.URLS:
                     opt['url'] = cls.URLS[option]
                 options.append(types.InlineKeyboardButton(**opt))
-            markup.add(*cls.OPTIONS, row_width=2)
-        markup.add(cls.BACK)
+            markup.add(*options)
+        markup.add(types.InlineKeyboardButton(cls.BACK))
         return markup
 
     @classmethod
