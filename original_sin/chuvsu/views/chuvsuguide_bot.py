@@ -51,8 +51,6 @@ class ChatBase:
 
     GREETING = ''
 
-    URLS = {}
-
     @classmethod
     def get_user(cls, message):
         return BotProfile2.objects.get(user_guid=message['chat']['id'])
@@ -81,18 +79,10 @@ class ChatBase:
 
     @classmethod
     def keyboard(cls):
-        markup = types.InlineKeyboardMarkup()
+        markup = types.ReplyKeyboardMarkup(one_time_keyboard=True)
         if cls.OPTIONS:
-            options = []
-            for option in cls.OPTIONS:
-                opt = dict()
-                if option in cls.TEXTS:
-                    opt['text'] = cls.TEXTS[option]
-                if option in cls.URLS:
-                    opt['url'] = cls.URLS[option]
-                options.append(types.InlineKeyboardButton(**opt))
-            markup.add(*options)
-        markup.add(types.InlineKeyboardButton(cls.BACK))
+            markup.add(*cls.OPTIONS, row_width=2)
+        markup.add(cls.BACK)
         return markup
 
     @classmethod
@@ -365,8 +355,12 @@ class ExtracurricularLifeChat(ChatBase):
         'Подписаться на TG канал ЧувГУ',
     ]
 
-    URLS = {
-        'Подписаться на TG канал ЧувГУ': 'tg://t.me/chuvsu21'
+    TEXTS = {
+        'Подписаться на TG канал ЧувГУ': """
+            У нас в университете много возможностей. 
+            Мы все рассказываем в нашем TG-канале @chuvsu21. 
+            Подпишись, чтобы не пропустить ничего интересного
+        """,
     }
 
     SINKING = {
