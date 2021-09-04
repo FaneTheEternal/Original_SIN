@@ -301,6 +301,11 @@ class AdditionalEducationChat(ChatBase):
         'Автошкола',
     ]
 
+    PHOTOS = {
+        'Бизнес-инкубатор': 'businass_incub.jpg',
+        'Автошкола': 'auto_school.jpg',
+    }
+
     TEXTS = {
         'Бизнес-инкубатор': """
             Структурное подразделение университета, которое поможет тебе получить опыт предпринимательства. 
@@ -352,6 +357,12 @@ class RecreationAndEntertainmentChat(ChatBase):
         'Коворкинг',
         'Клуб настольных игр',
     ]
+
+    PHOTOS = {
+        'Научная библиотека': 'slib.jpg',
+        'Коворкинг': 'co-work.jpg',
+        'Клуб настольных игр': 'board_games_club.jpg',
+    }
 
     TEXTS = {
         'Научная библиотека': """
