@@ -42,7 +42,7 @@ def index(request):
     return HttpResponse('ok', content_type="text/plain")
 
 
-BASE_IMAGE_PATH = Path(settings.BASE_DIR).joinpath('original_sin', 'chuvsu', 'static', 'chuvsu')
+BASE_IMAGE_PATH = Path(settings.BASE_DIR).joinpath('chuvsu', 'static', 'chuvsu')
 
 
 class ChatBase:
