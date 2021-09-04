@@ -1,8 +1,10 @@
 import inspect
 import json
 import logging
+import os
 import re
 import sys
+from pathlib import Path
 
 import telebot
 from django.conf import settings
@@ -40,6 +42,9 @@ def index(request):
     return HttpResponse('ok', content_type="text/plain")
 
 
+BASE_IMAGE_PATH = Path(settings.BASE_DIR).joinpath('original_sin', 'chuvsu', 'static', 'chuvsu')
+
+
 class ChatBase:
     BACK = 'Назад'
 
@@ -50,6 +55,8 @@ class ChatBase:
     SINKING = {}
 
     GREETING = ''
+
+    PHOTOS = {}
 
     @classmethod
     def get_user(cls, message):
@@ -86,7 +93,16 @@ class ChatBase:
         return markup
 
     @classmethod
+    def send_photo(cls, message, photo):
+        bot.send_chat_action(message['chat']['id'], 'upload_photo')
+        img = open(BASE_IMAGE_PATH.joinpath(photo), 'rb')
+        bot.send_photo(message['chat']['id'], img)
+        img.close()
+
+    @classmethod
     def send(cls, message, text: str):
+        if message['text'] in cls.PHOTOS:
+            cls.send_photo(message, cls.PHOTOS[message['text']])
         text = text.strip()
         text = re.sub('\n +', '\n', text)
         bot.send_message(
@@ -126,8 +142,9 @@ class FindHousingChat(ChatBase):
 
 class StructuralUnitsChat(ChatBase):
     GREETING = """
-        У нас в университете много возможностей. Мы все рассказываем в нашем TG-канале. 
-        Подпишись, чтобы не пропустить ничего интересного, а пока: о чем тебе рассказать?
+        Это очень важные объединения нашего университета. 
+        Представители этих структур есть на каждом факультете, и ты смело можешь обращаться к ним с вопросиками. 
+        Ознакомься с информацией о каждом из них, чтобы знать к кому по какому делу обращаться.
     """
 
     OPTIONS = [
@@ -165,7 +182,7 @@ class StructuralUnitsChat(ChatBase):
             обращайся за информацией по спортивным мероприятиям в Спортивный клуб ЧувГУ им. Ульянова. 
             Он находится по адресу Московский проспект, д.15, каб. К-303а.
             Группа ВК – https://vk.com/sport_chgu
-            Председатель ССК – Сергей Гаврилов
+            Председатель ССК – Симонова Ольга Юрьевна
         """,
         'СНО': """
             Это добровольное объединение студентов ЧувГУ, которое занимается организацией и проведением научно-практических конференций, «круглых столов», олимпиад, квестов и других не менее интересных научных мероприятий. СНО можно найти по адресу Московский проспект, д.15, каб. Г-410.
@@ -186,9 +203,8 @@ class StructuralUnitsChat(ChatBase):
 
 class SportsAndTourismChat(ChatBase):
     GREETING = """
-        У нас в университете много возможностей. 
-        Мы все рассказываем в нашем TG-канале. 
-        Подпишись, чтобы не пропустить ничего интересного, а пока: о чем тебе рассказать?
+        Мы заботимся о том, чтобы наши студенты были самыми здоровыми и спортивными. 
+        Смотри, что у нас для тебя есть
     """
 
     OPTIONS = [
@@ -196,6 +212,12 @@ class SportsAndTourismChat(ChatBase):
         'Студия ГТО',
         'Турклуб ЧувГУ',
     ]
+
+    PHOTOS = {
+        'Спортивные секции': 'sport_section.jpg',
+        'Студия ГТО': 'gto.jpg',
+        'Турклуб ЧувГУ': 'tour_club.jpg',
+    }
 
     TEXTS = {
         'Спортивные секции': """
@@ -218,9 +240,9 @@ class SportsAndTourismChat(ChatBase):
 
 class CreativityAndHobbiesChat(ChatBase):
     GREETING = """
-        У нас в университете много возможностей. 
-        Мы все рассказываем в нашем TG-канале. 
-        Подпишись, чтобы не пропустить ничего интересного, а пока: о чем тебе рассказать?
+        Здесь ребята делают классные вещи. 
+        Ты можешь просто следить за их деятельностью, ведь каждое направление делает огромный вклад в развитие универа. 
+        Но ты также можешь стать их частью.
     """
 
     OPTIONS = [
@@ -229,6 +251,13 @@ class CreativityAndHobbiesChat(ChatBase):
         'Киберклуб ЧувГУ',
         'Медиа-центр ЧГУ NEWS',
     ]
+
+    PHOTOS = {
+        'Волонтерский центр ЧувГУ': 'volonter.jpg',
+        'Студии ДК ЧГУ': 'dk_chuvsu.jpg',
+        'Киберклуб ЧувГУ': 'e-sport.jpg',
+        'Медиа-центр ЧГУ NEWS': 'news.jpg',
+    }
 
     TEXTS = {
         'Волонтерский центр ЧувГУ': """
@@ -256,9 +285,7 @@ class CreativityAndHobbiesChat(ChatBase):
 
 class AdditionalEducationChat(ChatBase):
     GREETING = """
-        У нас в университете много возможностей. 
-        Мы все рассказываем в нашем TG-канале. 
-        Подпишись, чтобы не пропустить ничего интересного, а пока: о чем тебе рассказать?
+        Приобретай важные навыки, которые пригодятся тебе во взрослой жизни, не выходя из универа.
     """
 
     OPTIONS = [
@@ -282,9 +309,8 @@ class AdditionalEducationChat(ChatBase):
 
 class HealthChat(ChatBase):
     GREETING = """
-        У нас в университете много возможностей. 
-        Мы все рассказываем в нашем TG-канале. 
-        Подпишись, чтобы не пропустить ничего интересного, а пока: о чем тебе рассказать?
+        Никаких стрессов после сессии. 
+        Мы готовы поправить твое здоровье прямо в университете.
     """
 
     OPTIONS = [
@@ -309,9 +335,8 @@ class HealthChat(ChatBase):
 
 class RecreationAndEntertainmentChat(ChatBase):
     GREETING = """
-        У нас в университете много возможностей. 
-        Мы все рассказываем в нашем TG-канале. 
-        Подпишись, чтобы не пропустить ничего интересного, а пока: о чем тебе рассказать?
+        Легкий чилл учебе не помешает. 
+        Смотри, как можно весело провести время после пар.
     """
 
     OPTIONS = [
@@ -343,7 +368,7 @@ class RecreationAndEntertainmentChat(ChatBase):
 
 
 class ExtracurricularLifeChat(ChatBase):
-    GREETING = 'Чем тебе помочь?'
+    GREETING = 'О чем тебе рассказать?'
 
     OPTIONS = [
         'Структурные подразделения',
