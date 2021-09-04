@@ -155,6 +155,14 @@ class StructuralUnitsChat(ChatBase):
         'Дворец культуры ЧГУ',
     ]
 
+    PHOTOS = {
+        'Профком': 'profcom.jpg',
+        'Студсовет': 'studsovet.jpg',
+        'Спортивный клуб': 'sport_club.jpg',
+        'СНО': 'sno.jpg',
+        'Дворец культуры ЧГУ': 'dk_chgu.jpg',
+    }
+
     TEXTS = {
         'Профком': """
             Защищает права студентов и предоставляет социальные гарантии членам профсоюза. 
@@ -254,7 +262,7 @@ class CreativityAndHobbiesChat(ChatBase):
 
     PHOTOS = {
         'Волонтерский центр ЧувГУ': 'volonter.jpg',
-        'Студии ДК ЧГУ': 'dk_chuvsu.jpg',
+        'Студии ДК ЧГУ': 'stud_dk_chuvsu.jpg',
         'Киберклуб ЧувГУ': 'e-sport.jpg',
         'Медиа-центр ЧГУ NEWS': 'news.jpg',
     }
