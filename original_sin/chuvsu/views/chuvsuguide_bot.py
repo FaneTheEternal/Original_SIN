@@ -11,7 +11,6 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from telebot import types
-from telegram import ParseMode
 
 from chuvsu.models import BotProfile2
 from core.utility import func_once
@@ -110,7 +109,7 @@ class ChatBase:
             message["chat"]["id"],
             text,
             reply_markup=cls.keyboard(),
-            parse_mode=ParseMode.HTML,
+            parse_mode='HTML',
         )
 
 
