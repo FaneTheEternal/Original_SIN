@@ -525,10 +525,14 @@ class ExtracurricularLifeChat(ChatBase):
 
 
 class StartChat(ChatBase):
-    GREETING = """
+    FIRST_GREETING = """
         Привет! Этот бот-помощник поможет тебе познакомиться с нашим университетом и его возможностями. 
         Расскажем все самое важное и как скрасить свою рутину внеучебной деятельностью.
         Пс, полезно будет, даже если ты не первак.
+    """
+
+    GREETING = """
+        Что на этот раз?)
     """
 
     SPECIAL = 'У меня есть вопрос или предложение'
@@ -553,11 +557,13 @@ class StartChat(ChatBase):
                 current=cls.__name__,
             ),
             user_guid=message['chat']['id']
-        )[0]
+        )
 
     @classmethod
     def execute(cls, message, join=False):
-        user = cls.get_user(message)
+        user, created = cls.get_user(message)
+        if created:
+            return cls.send(message, cls.FIRST_GREETING)
         join = join or not bool(user.current)
         if join:
             return super(StartChat, cls).execute(message, join=join)
