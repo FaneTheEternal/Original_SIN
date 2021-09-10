@@ -550,18 +550,14 @@ class StartChat(ChatBase):
     }
 
     @classmethod
-    def get_user(cls, message):
-        return BotProfile2.objects.get_or_create(
+    def execute(cls, message, join=False):
+        user, created = BotProfile2.objects.get_or_create(
             dict(
                 user_guid=message['chat']['id'],
                 current=cls.__name__,
             ),
             user_guid=message['chat']['id']
         )
-
-    @classmethod
-    def execute(cls, message, join=False):
-        user, created = cls.get_user(message)
         if created:
             return cls.send(message, cls.FIRST_GREETING)
         join = join or not bool(user.current)
