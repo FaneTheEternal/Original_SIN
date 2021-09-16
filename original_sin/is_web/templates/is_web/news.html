@@ -1,62 +1,7 @@
 {% extends 'is_web/base.html' %}
 
 {% block tab_content %}
-    <div class="card m-3">
-        <div class="card-header">
-            ДР организации
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">На днях организации исполнился год</h5>
-            <p class="card-text">
-                Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий
-                безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для
-                распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и
-                перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с
-                образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus
-                PageMaker, в шаблонах которых используется Lorem Ipsum.
-            </p>
-        </div>
-    </div>
-    <div class="card m-3">
-        <div class="card-header">
-            Создание сайта
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Создание веб-сайта. Курс молодого бойца</h5>
-            <p class="card-text">
-                Как-то меня попросили провести небольшой семинар в лицее, где я когда-то учился, по созданию веб-сайта.
-                В процессе написания речи я подумал, что она может вылиться в материал, который, возможно, будет полезен
-                многим начинающим в области веб-дизайна, вёрстки веб-страниц и пр. Я не претендую на истину в первой
-                инстанции и всё изложенное носит чисто личностный взгляд на работу с дизайном и кодом. Статья даёт
-                поверхностный взгляд на понятия и средства, которые, на мой взгляд, могут стать неплохим стартом для
-                того, кто готов идти дальше.
-            </p>
-            <a href="https://habr.com/ru/post/273795/" target="_blank" class="card-link">Источник</a>
-        </div>
-    </div>
-    <div class="card m-3">
-        <div class="card-header">
-            Праздники
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">День программиста</h5>
-            <p class="card-text">
-                Праздник программистов, отмечаемый в 256-й день года. Число 256 (28) выбрано потому, что это количество
-                различных значений, которые можно выразить с помощью восьмиразрядного байта. Также это максимальная
-                целая степень числа 2, которая не превышает количества дней в году (365 или 366).
-            </p>
-        </div>
-    </div>
-    <div class="card m-3">
-        <div class="card-header">
-            Изменение в прайсе/каталоге
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Card title that wraps to a new line</h5>
-            <p class="card-text">
-                This is a longer card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.
-            </p>
-        </div>
-    </div>
+    {% for news_item in news %}
+        {% include 'is_web/card.html' with card=news_item %}
+    {% endfor %}
 {% endblock %}

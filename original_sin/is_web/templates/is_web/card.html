@@ -1,0 +1,26 @@
+<div class="card m-3">
+    {% if card.header %}
+        <div class="card-header">
+            {{ card.header }}
+        </div>
+    {% endif %}
+    {% if card.img %}
+        <img src="{{ card.img.url }}" alt="Картинка" width="100" height="100">
+    {% endif %}
+    <div class="card-body">
+        {% if card.title %}
+            <h5 class="card-title">{{ card.title }}</h5>
+        {% endif %}
+        {% if card.text %}
+            <p class="card-text">
+                {{ card.text }}
+            </p>
+        {% endif %}
+        {% if card.links %}
+            {% for link in card.get_links %}
+                <a href="{{ link.1 }}" target="_blank"
+                   class="card-link">{{ link.0 }}</a>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
