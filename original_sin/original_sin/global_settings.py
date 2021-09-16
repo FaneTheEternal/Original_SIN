@@ -76,6 +76,8 @@ class GlobalSettings(BasicSettings):
 
     DATABASE_ROUTERS = ['original_sin.db_routs.OldBotRouter']
 
+    DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
     @property
     def MIDDLEWARE(self):
         base = list(super(GlobalSettings, self).MIDDLEWARE)
