@@ -4,7 +4,8 @@ from ninja import NinjaAPI
 
 from core.decor import SafeWrapper
 from hr_analytics.models import Company, Employee
-from hr_analytics.schemas import CompanyGetSchema, EmployeeSchema, EmployeeCreateSchema
+from hr_analytics.schemas import CompanyGetSchema, EmployeeSchema, EmployeeCreateSchema, EmployeeUpdateSchema, \
+    EmployeeGetSchema
 
 api = NinjaAPI(urls_namespace='hr_analytics')
 
@@ -48,3 +49,19 @@ def employee_all(obj: CompanyGetSchema):
     employees = company.employees.all()
     employees = map(lambda e: EmployeeSchema.from_django(e), employees)
     return dict(employees=employees)
+
+
+# UPDATE
+@api.post('/employee/update')
+@SafeWrapper(EmployeeUpdateSchema)
+def employee_update(obj: EmployeeUpdateSchema):
+    Employee.objects.update_or_create(obj.dict(), guid=obj.guid)
+    return dict()
+
+
+# DELETE
+@api.post('/employee/delete')
+@SafeWrapper(EmployeeGetSchema)
+def employee_delete(obj: EmployeeGetSchema):
+    Employee.objects.filter(guid=obj.guid).delete()
+    return dict()
