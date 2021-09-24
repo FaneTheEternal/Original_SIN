@@ -114,7 +114,11 @@ class ChatBase:
 
 
 class QuestionOrSuggestionChat(ChatBase):
-    GREETING = 'Чем тебе помочь?'
+    GREETING = """
+        Ты можешь оставить здесь анонимные предложения для университета и задать свои вопросы, 
+        на которые мы ответим в нашем Telegram-канале
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzfL4HEeZM6vW7dMqOmGwIIL-PTJRNgomnRJHTPSi8ebapyA/viewform">inline URL</a>
+    """
 
 
 class FindHousingChat(ChatBase):
