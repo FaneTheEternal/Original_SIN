@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Model
 from django.http import HttpRequest
-from ninja import Schema
+from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 class SafeWrapper:
     schema = None
 
-    def __init__(self, _schema: Type[Schema] = None):
+    def __init__(self, _schema: Type[BaseModel] = None):
         self.schema = _schema
 
     def __call__(self, func: Callable[[object], Dict[str, str]]):

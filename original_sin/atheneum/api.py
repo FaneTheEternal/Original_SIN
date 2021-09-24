@@ -1,16 +1,13 @@
-import functools
 import logging
-from typing import Callable, Dict, Union, Type
+from typing import Union
 
-from django.conf import settings
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpRequest
-from ninja import NinjaAPI, Schema
+from ninja import NinjaAPI
 
 from core.decor import SafeWrapper
-from .logic import get_pages_urls, get_books, get_books_review
 from .models import SimpleUser, Book
-from .schemas import TryLoginSchema, LoginSchema, BookSchema
+from .schemas import BookSchema
 
 api = NinjaAPI(urls_namespace='atheneum')
 
