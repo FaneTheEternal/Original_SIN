@@ -47,6 +47,9 @@ class GlobalSettings(BasicSettings):
 
             # Информационная безопасность web-ресурсов
             'is_web.apps.IsWebConfig',
+
+            # Аналитика сотрудников
+            'hr_analytics.apps.HrAnalyticsConfig',
         ]
         return apps
 
