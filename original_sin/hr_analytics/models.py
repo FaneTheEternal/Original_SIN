@@ -65,5 +65,31 @@ class Employee(GlobalIdentityMixin, TimestampMixin, models.Model):
         null=True, blank=True,
     )
 
+    class Meta:
+        verbose_name = 'Сотрудник'
+        verbose_name_plural = 'Сотрудники'
+
     def __str__(self):
         return f'{self.company}: {self.name}'
+
+
+class Vacation(models.Model):
+    employee = models.ForeignKey(
+        to=Employee,
+        on_delete=models.CASCADE,
+        related_name='vacations'
+    )
+    reason = models.TextField(
+        verbose_name='Причика',
+    )
+    date_start = models.DateField(
+        verbose_name='Дата начала',
+    )
+    date_end = models.DateField(
+        verbose_name='Дата окончания',
+        null=True, blank=True,
+    )
+
+    class Meta:
+        verbose_name = 'Опуск'
+        verbose_name_plural = 'Отпуска'
