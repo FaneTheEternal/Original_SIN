@@ -23,6 +23,10 @@ class Employee(GlobalIdentityMixin, TimestampMixin, models.Model):
         verbose_name='Имя',
         max_length=1024,
     )
+    post = models.CharField(
+        verbose_name='Должность',
+        max_length=1024,
+    )
     education = models.CharField(
         verbose_name='Образование',
         max_length=1024,
