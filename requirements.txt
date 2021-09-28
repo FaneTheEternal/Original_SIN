@@ -15,7 +15,7 @@ huey==2.3.1
 
 django-storages==1.11.1
 
-django-bootstrap4==3.0.1
+django-bootstrap-v5==1.0.5
 
 vk_api==11.9.4
 googletrans==3.1.0a0

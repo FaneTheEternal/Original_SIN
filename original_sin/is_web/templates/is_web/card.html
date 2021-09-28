@@ -1,4 +1,6 @@
-<div class="card m-3">
+<div class="card m-3 card-time-update" data-bs-toggle="popover"
+     data-bs-content="popover content" data-bs-trigger="hover"
+    id="_{{ card.uid.hex }}">
     {% if card.header %}
         <div class="card-header">
             {{ card.header }}

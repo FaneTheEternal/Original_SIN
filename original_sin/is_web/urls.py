@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.urls import path
 
 from django.views.generic import RedirectView
 
@@ -29,4 +30,5 @@ urlpatterns = [
         views.InfoView.as_view(),
         name='info',
     ),
+    path('api/', views.api.urls),
 ]

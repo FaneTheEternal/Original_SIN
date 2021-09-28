@@ -19,7 +19,7 @@ class GlobalSettings(BasicSettings):
             'huey.contrib.djhuey',
 
             'ordered_model',
-            'bootstrap4',
+            'bootstrap5',
 
             # django-storages
             # 'storages',
@@ -150,10 +150,6 @@ class GlobalSettings(BasicSettings):
     }
 
     CHUVSUGUIDE_BOT_TOKEN = ''
-
-    BOOTSTRAP4 = {
-        'include_jquery': 'full'
-    }
 
 
 class EnvironmentLoadSettings(GlobalSettings):

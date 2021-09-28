@@ -1,6 +1,10 @@
 {% extends 'is_web/bootstrap.html' %}
 
-{% load bootstrap4 %}
+{% load bootstrap5 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
 
 {% block title %}
     {% if tab == 'news' %}
@@ -14,7 +18,52 @@
     {% endif %}
 {% endblock %}
 
-{% block bootstrap4_content %}
+{% block bootstrap5_content %}
     {% include 'is_web/navbar.html' with tab=tab %}
     {% block tab_content %}{% endblock %}
-{% endblock bootstrap4_content %}
+    <script type="text/javascript">
+        let update = function () {
+            let cards = document.querySelectorAll('.card-time-update');
+            cards.forEach(card => {
+                let popover = new bootstrap.Popover(card, {
+                    container: 'body'
+                })
+            })
+            return cards
+        }
+        let updateCard = async card => {
+            let uid = card.id.slice(1);
+            let body = {
+                uid: uid,
+            };
+            let response = await fetch(
+                `http://${window.location.hostname}:8000/is_web/api/get_time`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                        'accept': '*/*',
+                    },
+                    body: JSON.stringify(body)
+                }
+            );
+            if (response.ok) {
+                let json = await response.json();
+                card.setAttribute('data-bs-content', json['created'])
+            }
+        }
+        let makePopover = function () {
+            let cards = update();
+            cards.forEach(card => {
+                updateCard(card);
+                setInterval(
+                    function () {
+                        updateCard(card)
+                    },
+                    5000,
+                )
+            });
+        };
+        document.addEventListener("DOMContentLoaded", makePopover);
+    </script>
+{% endblock bootstrap5_content %}
