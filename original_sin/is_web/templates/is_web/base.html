@@ -67,3 +67,24 @@
         document.addEventListener("DOMContentLoaded", makePopover);
     </script>
 {% endblock bootstrap5_content %}
+
+{% block bootstrap5_extra_head %}
+    {{ block.super }}
+    <style>
+        ul.my-ul {
+            list-style: none;
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        li.my-li {
+            padding-left: 1em;
+            text-indent: -1em;
+        }
+
+        li.my-li:before {
+            content: "★";
+            padding-right: 5px;
+        }
+    </style>
+{% endblock %}
