@@ -50,3 +50,31 @@ def import_employees():
         if created:
             count_new += 1
     logger.info(f'Processed: {count_all}; New: {count_new}')
+
+
+def filter_list():
+    """ allowed filters """
+    filters = [
+        'name',
+        'post',
+        'education',
+        'experience',
+        'date_of_birth',
+        'sex',
+        'family_status',
+        'date_of_receipt',
+        'date_of_dismissal',
+        'salary',
+        'reason_for_dismissal',
+    ]
+    filters = [
+        (field.name, field.verbose_name)
+        for field in Employee._meta.get_fields()
+        if field.name in filters
+    ]
+    return filters
+
+
+def filter_values(f: str) -> list:
+    values = Employee.objects.all().values_list(f, flat=True)
+    return list(set(values))

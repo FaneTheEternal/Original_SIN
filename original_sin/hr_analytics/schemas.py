@@ -30,3 +30,13 @@ class EmployeeSchema(ModelSchema):
     class Config:
         model = models.Employee
         exclude = ['company']
+
+
+# FILTERS
+class FilterValuesSchema(Schema):
+    filter: str
+
+
+class FilterSimpleSchema(Schema):
+    filter: str
+    value: str
