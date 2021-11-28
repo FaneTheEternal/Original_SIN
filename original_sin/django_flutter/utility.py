@@ -52,7 +52,7 @@ class FlutterWrapper(object):
             cmd += ['--release']
         if self.build_params:
             cmd += self.build_params
-        self.logger.info(f'Run `{cmd}`')
+        self.logger.info(f'Run `{" ".join(cmd)}`')
         call = subprocess.Popen(
             cmd,
             cwd=path,
@@ -67,9 +67,8 @@ class FlutterWrapper(object):
             self._re_build_index(build_path.joinpath('index.html'))
             return build_path
         else:
-            self.logger.error(f'Some error occurred')
             text, err = call.communicate()
-            self.logger.error(err)
+            self.logger.error('Some error occurred\n' + err.decode('utf-8'))
             return None
 
     def transfer(self, build_path, app_name):
