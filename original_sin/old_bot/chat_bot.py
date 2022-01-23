@@ -16,6 +16,7 @@ COMMON_COMMANDS = [
     'Расписание',
     'Стипендии',
     'Общежития',
+    'Студенческая жизнь',
     'Поступающим',
     'Начать',
 ]
@@ -143,6 +144,10 @@ def home_keyboard(keyboard=None, one_time=True):
     keyboard.add_button(
         'Общежития', color=VkKeyboardColor.SECONDARY
     )
+    keyboard.add_button(
+        'Студенческая жизнь', color=VkKeyboardColor.SECONDARY
+    )
+    keyboard.add_line()
     keyboard.add_button(
         'Поступающим', color=VkKeyboardColor.SECONDARY
     )
