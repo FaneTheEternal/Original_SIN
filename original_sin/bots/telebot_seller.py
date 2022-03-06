@@ -10,6 +10,7 @@ token = getattr(settings, 'CHUVSUGUIDE_BOT_TOKEN', None)
 if token:
     bot = telebot.TeleBot(getattr(settings, 'TELEBOT_SELLER_TOKEN', None))
 
+
     @bot.message_handler(commands=['start'])
     def start(message):
         msg = (
@@ -21,3 +22,5 @@ if token:
 
 
     bot.infinity_polling()
+else:
+    raise ValueError(f'No bot token {type(token)}: {token}')
