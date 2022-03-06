@@ -21,6 +21,6 @@ if token:
         bot.reply_to(message, msg)
 
 
-    bot.infinity_polling()
+    # bot.infinity_polling()
 else:
     raise ValueError(f'No bot token {type(token)}: {token}')
