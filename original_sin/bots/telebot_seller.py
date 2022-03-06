@@ -16,3 +16,6 @@ def start(message):
         'Помощь по использованию бота https://t.me/c/1242266411/9\n'
     )
     bot.reply_to(message, msg)
+
+
+bot.infinity_polling()
