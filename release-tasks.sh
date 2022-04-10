@@ -9,6 +9,10 @@ python manage.py migrate --database=old_bot_db
 echo 'db migrate postgresql'
 python manage.py migrate --database=postgresql
 
+echo 'db fix old_bot'
+python manage.py migrate old_bot zero
+python manage.py migrate old_bot
+
 echo 'manage fix_default_admin'
 python manage.py fix_default_admin
 echo 'manage check_aws_s3'
