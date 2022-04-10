@@ -13,6 +13,10 @@ from .models import VkUser, QuestProfile, IncomingProfile
 
 import json
 import sys
+import logging
+import requests
+
+logger = logging.getLogger(__name__)
 
 
 @csrf_exempt
@@ -73,6 +77,24 @@ def index(request):
     return HttpResponse('see you :)')
 
 
+def _fill(data):
+    counter = 0
+    for row in data:
+        obj = dict(
+            user_id=row['user_id'],
+            status=row['status'],
+        )
+        user, created = VkUser.objects.update_or_create(obj, user_id=row['user_id'])
+        if row['quest_profile']:
+            quest, _ = QuestProfile.objects.update_or_create(
+                dict(user=user, data=row['quest_profile']), user=user)
+        if row['incoming_profile']:
+            incoming, _ = IncomingProfile.objects.update_or_create(
+                dict(user=user, status=row['incoming_profile']), user=user)
+        counter += 1
+    return counter
+
+
 @csrf_exempt
 def fill(request):
     user = getattr(request, 'user')
@@ -80,20 +102,7 @@ def fill(request):
         assert user.is_superuser, 'You must be a superuser'
         assert request.method == 'POST', 'Except POST'
         data = json.loads(request.body)
-        counter = 0
-        for row in data:
-            obj = dict(
-                user_id=row['user_id'],
-                status=row['status'],
-            )
-            user, created = VkUser.objects.update_or_create(obj, user_id=row['user_id'])
-            if row['quest_profile']:
-                quest, _ = QuestProfile.objects.update_or_create(
-                    dict(user=user, data=row['quest_profile']), user=user)
-            if row['incoming_profile']:
-                incoming, _ = IncomingProfile.objects.update_or_create(
-                    dict(user=user, status=row['incoming_profile']), user=user)
-            counter += 1
+        counter = _fill(data)
         return HttpResponse(f'Affected {counter} users')
     except Exception as e:
         return HttpResponse(f'Error cause: {e}: {getattr(e, "message", "hz")}')
@@ -114,3 +123,24 @@ def raw(request: WSGIRequest):
         return HttpResponse(response)
     except Exception as e:
         return HttpResponse(f'Error cause: {e}: {getattr(e, "message", "hz")}')
+
+
+@csrf_exempt
+def extract(request):
+    user = getattr(request, 'user', None)
+    try:
+        assert user.is_superuser
+        assert request.POST
+        data = request.POST
+        host = data['host']
+        cookie = data['cookie']
+        raw_data = requests.get(
+            url=f'https://{host}/old_bot/raw',
+            cookies=dict(sessionid=cookie),
+        )
+        data = json.loads(raw_data.text)
+        counter = _fill(data)
+        return HttpResponse(f'Affected {counter} users')
+    except Exception as e:
+        logger.warning(e, exc_info=True)
+        return HttpResponse('Error')

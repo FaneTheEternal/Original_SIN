@@ -178,11 +178,14 @@ class EnvironmentLoadSettings(GlobalSettings):
                     ssl_require=True
                 )
 
-        redis_save = json.loads(env.get('REDIS_SAFE', 'false'))
-        redis_url = env.get('REDIS_TLS_URL') if redis_save else env.get('REDIS_URL')
-        pool = ConnectionPool.from_url(redis_url, max_connections=20)
+        try:
+            redis_save = json.loads(env.get('REDIS_SAFE', 'false'))
+            redis_url = env.get('REDIS_TLS_URL') if redis_save else env.get('REDIS_URL')
+            pool = ConnectionPool.from_url(redis_url, max_connections=20)
 
-        # Huey
-        huey = RedisHuey('redis-huey', connection_pool=pool)
-        base['HUEY'] = huey
+            # Huey
+            huey = RedisHuey('redis-huey', connection_pool=pool)
+            base['HUEY'] = huey
+        except:
+            base.pop('HUEY', None)
         return base

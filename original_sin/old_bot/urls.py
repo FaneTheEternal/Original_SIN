@@ -17,5 +17,6 @@ urlpatterns = [
         r'raw',
         views.raw,
         name='raw',
-    )
+    ),
+    url(r'^extract$', views.extract)
 ]
