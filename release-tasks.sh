@@ -10,8 +10,8 @@ echo 'db migrate postgresql'
 python manage.py migrate --database=postgresql
 
 echo 'db fix old_bot'
-python manage.py migrate old_bot zero
-python manage.py migrate old_bot
+python manage.py migrate old_bot zero --database=old_bot_db
+python manage.py migrate old_bot --database=old_bot_db
 
 echo 'manage fix_default_admin'
 python manage.py fix_default_admin
