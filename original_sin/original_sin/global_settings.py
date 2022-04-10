@@ -77,7 +77,7 @@ class GlobalSettings(BasicSettings):
     CHUVSU_VK_CONFIRMATION_TOKEN = ''
     CHUVSU_VK_SECRET_KEY = ''
 
-    # DATABASE_ROUTERS = ['original_sin.db_routs.OldBotRouter']
+    DATABASE_ROUTERS = ['original_sin.db_routs.OldBotRouter']
 
     DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
